@@ -164,6 +164,7 @@
 								this._fromOptions = this._fromOptions || {};
 								this._fromOptions[prop] = this[i];
 							} else if (i.indexOf("to") === 0) {
+								this._toOptions = this._toOptions || {};
 								this._toOptions[prop] = this[i];
 							}
 						}
