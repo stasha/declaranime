@@ -1,0 +1,110 @@
+<script>
+	window.declaranime.SlideBehaviorImpl = {
+		properties: {
+			in: {
+				type: String,
+				value: "top"
+			},
+			out: {
+				type: String,
+				alue: "top"
+			}
+		},
+		slideIn: function () {
+			this.update(this.in, "from");
+		},
+		slideOut: function () {
+			this.update(this.out, "to");
+		},
+		preStart: function () {
+			if (!this.element) {
+				throw "Cant slide " + this.element + ".";
+			}
+			//TODO create mechanism that will automatically find out if
+			// element should slide in or out and set dir and inOut properties.
+			var dir = "from"; // dir = "to"
+			var inOut = "left"; 
+			switch (inOut) {
+				case "left":
+					this.setLeft(dir);
+					break;
+				case "right":
+					this.setRight(dir);
+					break;
+				case "top":
+					this.setTop(dir);
+					break;
+				case "bottom":
+					this.setBottom(dir);
+					break;
+				case "left top":
+				case "top left":
+					this.setLeft(dir);
+					this.setTop(dir);
+					break;
+				case "left bottom":
+				case "bottom left":
+					this.setLeft(dir);
+					this.setBottom(dir);
+					break;
+				case "right top":
+				case "top right":
+					this.setRight(dir);
+					this.setTop(dir);
+					break;
+				case "right bottom":
+				case "bottom right":
+					this.setRight(dir);
+					this.setBottom(dir);
+					break;
+				default:
+					throw "Slide in type " + inOut + " is not yet implemented.";
+			}
+
+			// only if sliding in, we set end position to 0.
+			if (dir === "from") {
+				this.toX = this.toY = 0;
+			}
+		},
+		setLeft: function (dir) {
+			this[dir + "X"] = -this.getEndPoint(this.element, "offsetWidth", "marginLeft");
+		},
+		setRight: function (dir) {
+			this[dir + "X"] = this.getEndPoint(this.getParentElement(), "offsetWidth", "marginRight");
+		},
+		setTop: function (dir) {
+			this[dir + "Y"] = -this.getEndPoint(this.element, "offsetHeight", "marginTop");
+		},
+		setBottom: function (dir) {
+			this[dir + "Y"] = this.getEndPoint(this.getParentElement(), "offsetHeight", "marginBottom");
+		},
+		/**
+		 * Returns parent element or this.element if there is no parent.
+		 * 
+		 * @returns 
+		 */
+		getParentElement: function () {
+			return this.element[0] && (this.element[0].parentElement || this.element);
+		},
+		/**
+		 * Returns the end point where element should stop animation.
+		 * 
+		 * @param {type} element
+		 * @param {type} sizeType
+		 * @param {type} margin
+		 * @returns 
+		 */
+		getEndPoint: function (element, sizeType, margin) {
+			var elm = element[0] || element;
+			var es = window.getComputedStyle(elm);
+			var size = elm[sizeType] + parseInt(es[margin]);
+			return size;
+		}
+	};
+
+	window.declaranime.SlideBehavior = [
+		window.declaranime.PositionBehavior,
+		window.declaranime.SlideBehaviorImpl
+	];
+
+</script>

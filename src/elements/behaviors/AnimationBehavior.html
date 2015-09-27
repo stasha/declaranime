@@ -1,0 +1,306 @@
+<script>
+
+	window.declaranime = window.declaranime || {};
+
+	window.declaranime.AnimationBehavior = {
+		properties: {
+			element: {
+				type: Object
+			},
+			speed: {
+				type: Number,
+				value: 0.5
+			},
+			delay: {
+				type: Number,
+				value: 0
+			},
+			immediateRender: {
+				type: Boolean
+			},
+			reverseOnBack: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			ease: {
+				type: Object,
+				value: Power2.easeOut,
+				obeserver: "setEase"
+			},
+			stagger: {
+				type: Number,
+				value: 0
+			},
+			overwrite: {
+				type: String
+			},
+			paused: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			useFrames: {
+				type: Boolean,
+				value: false,
+				reflecttoAttribute: true
+			},
+			offset: {
+				type: Number
+			},
+			yoyo: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			repeat: {
+				type: Number,
+				value: 0,
+				reflectToAttribute: true
+			},
+			repeatDelay: {
+				type: Number
+			},
+			onstart: {
+				type: String
+			},
+			onupdate: {
+				type: String
+			},
+			oncomplete: {
+				type: String
+			},
+			onrepeat: {
+				type: String
+			},
+			onreversecomplete: {
+				type: String
+			}
+		},
+		setEase: function (newValue) {
+			if (this.ignoreEaseSetting) {
+				this.ignoreEaseSetting = false;
+				return;
+			}
+			if (newValue && typeof newValue === "string") {
+				var splitted = newValue.split(".");
+				this.ease = window[splitted[0]][splitted[1]];
+				this.ignoreEaseSetting = true;
+			}
+		},
+		get fromOptions() {
+			return this._fromOptions || {};
+		},
+		set fromOptions(value) {
+			this._fromOptions = value;
+		},
+		get toOptions() {
+			this._toOptions = this._toOptions || {};
+			this._toOptions = Polymer.Base.extend(this._toOptions, {
+				delay: this.delay,
+				ease: this.ease,
+				overwrite: this.overwrite,
+				paused: this.paused
+			});
+
+			return this._toOptions;
+		},
+		set toOptions(value) {
+			this._toOptions = value;
+		},
+		stringToFunction: function (str) {
+			if (!str) {
+				return;
+			}
+			var newStr = str;
+			var reg = new RegExp(/\( *([^)]+?) *\)/).exec(str);
+
+			if (reg[1]) {
+				var args = reg[1].replace(/\s*,\s*/g, ",").split(",");
+
+				for (var i = 0; i < args.length; ++i) {
+					args[i] = "this." + args[i];
+				}
+
+				newStr = str.replace(reg[0], "(" + args.join(",") + ")");
+			}
+
+			var obj = {
+				execute: new Function(newStr)
+			};
+			return obj;
+		},
+		updateOptions: function () {
+			var self = this;
+			var ignoreProps = [
+				"in",
+				"out"
+			];
+			var clearPropName = [
+				"css"
+			];
+
+			function translateProperty(prop) {
+				var property = prop.replace("from", "").replace("to", "");
+				property = property.charAt(0).toLowerCase() + property.substr(1);
+				if (clearPropName.indexOf(property) === 0) {
+					for (var i = 0; i < clearPropName.length; ++i) {
+						property = property.replace(clearPropName[i], "");
+					}
+				}
+				if (self.propertyName && property && prop !== property && ignoreProps.indexOf(property) === -1) {
+					property = self.propertyName + property.charAt(0).toUpperCase() + property.substr(1);
+				}
+
+				return property;
+			}
+
+			function setOptions(properties) {
+				for (var i in properties) {
+					if (typeof this[i] !== "undefined") {
+						var prop = translateProperty(i);
+						if (prop) {
+							if (i.indexOf("from") === 0) {
+								this._fromOptions = this._fromOptions || {};
+								this._fromOptions[prop] = this[i];
+							} else if (i.indexOf("to") === 0) {
+								this._toOptions[prop] = this[i];
+							}
+						}
+					}
+				}
+			}
+
+			setOptions.call(this, this.properties);
+
+			for (var i = 0; i < this.behaviors.length; ++i) {
+				if (this.behaviors[i] === window.AnimationBehavior) {
+					continue;
+				}
+
+				setOptions.call(this, this.behaviors[i].properties);
+			}
+		},
+		play: function () {
+			this.updateOptions();
+
+			if (!this.stagger) {
+				if (this._fromOptions) {
+					this.tween = TweenMax.fromTo(this.element, this.speed, this.fromOptions, this.toOptions);
+				} else {
+					this.tween = TweenMax.to(this.element, this.speed, this.toOptions);
+				}
+			} else {
+				if (this._fromOptions) {
+					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this.fromOptions, this.toOptions, this.stagger);
+				} else {
+					this.tween = TweenMax.staggerTo(this.element, this.speed, this.toOptions, this.stagger);
+				}
+			}
+			return this.tween;
+		},
+		start: function (element, context, onStart, onUpdate, onComplete) {
+			switch (typeof element) {
+				case "string":
+					this.element = [].slice.call(document.querySelectorAll(element));
+					break;
+				case "undefined":
+					if (typeof this.element === "string") {
+						this.element = [].slice.call(document.querySelectorAll(this.element));
+					}
+					break;
+				default:
+					this.element = element || this.element;
+			}
+			
+			this.preStart && typeof this.preStart === "function" && this.preStart();
+
+			var self = this;
+			
+
+			this.toOptions = Polymer.Base.extend(this.toOptions, {
+				yoyo: this.yoyo || false,
+				repeat: this.repeat || 0,
+				onStart: function (e) {
+					onStart && onStart(e);
+					var func = self.stringToFunction(self.onstart);
+					if (func) {
+						func.event = {tween: self, element: self.element, context: context};
+						func.execute.call(func);
+					}
+				},
+				onUpdate: function (e) {
+					onUpdate && onUpdate(e);
+					var func = self.stringToFunction(self.onupdate);
+					if (func) {
+						func.event = {tween: self, element: self.element, context: context};
+						func.execute.call(func);
+					}
+				},
+				onComplete: function (e) {
+					onComplete && onComplete(e);
+					var func = self.stringToFunction(self.oncomplete);
+					if (func) {
+						func.event = {tween: self, element: self.element, context: context};
+						func.execute.call(func);
+					}
+				},
+				onRepeat: function(e) {
+					var func = self.stringToFunction(self.onrepeat);
+					if (func) {
+						func.event = {tween: self, element: self.element, context: context};
+						func.execute.call(func);
+					}
+				},
+				onReverseComplete: function(){
+					var func = self.stringToFunction(self.onreversecomplete);
+					if (func) {
+						func.event = {tween: self, element: self.element, context: context};
+						func.execute.call(func);
+					}
+				},
+				onCompleteParams: [this, element, context]
+			});
+
+
+			if (this.is === "fx-timeline") {
+				this.tween = new TimelineMax(this.toOptions);
+
+				for (var i = 0; i < this.children.length; ++i) {
+					var fx = this.children[i];
+					if (fx) {
+						this.tween.add(fx.start(this.element), this.parallel && !fx.offset ? 0 : fx.offset);
+					}
+				}
+				return this.tween;
+			}
+
+
+			return this.play();
+		},
+		stop: function () {
+			this.tween && this.tween.stop();
+		},
+		pause: function () {
+			this.tween && this.tween.pause();
+		},
+		resume: function () {
+			this.tween && this.tween.resume();
+		},
+		reverse: function () {
+			this.tween && this.tween.reverse();
+		},
+		seek: function (time) {
+			this.tween && this.tween.seek(time);
+		},
+		timeScale: function (scale) {
+			this.tween && this.tween.timeScale(scale);
+		},
+		kill: function () {
+			this.tween && this.tween.kill();
+		},
+		clone: function () {
+			return this.cloneNode(true);
+		}
+	};
+</script>

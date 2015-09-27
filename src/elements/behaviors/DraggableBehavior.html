@@ -1,0 +1,115 @@
+<script>
+	window.declaranime.DraggableBehavior = {
+		properties: {
+			element: {
+				type: String,
+				observer: "update"
+			},
+			trigger: {
+				type: String,
+				observer: "update"
+			},
+			bounds: {
+				type: String,
+				observer: "update"
+			},
+			type: {
+				type: String,
+				value: "x,y",
+				observer: "update"
+			},
+			lockAxis: {
+				tupe: Boolean,
+				value: false,
+				reflectToAttribute: true,
+				observer: "update"
+			},
+			edgeResistance: {
+				type: Number,
+				observer: "update"
+			},
+			minimumMovement: {
+				type: String,
+				value: 6,
+				observer: "update"
+			},
+			minRotation: {
+				type: String,
+				observer: "update"
+			},
+			maxRotation: {
+				type: String,
+				observer: "update"
+			},
+			autoScroll: {
+				type: Number,
+				value: 1,
+				observer: "update"
+			},
+			onpress: {
+				type: String
+			},
+			onrelease: {
+				type: String
+			},
+			onclick: {
+				type: String
+			},
+			ondragstart: {
+				type: String
+			},
+			ondrag: {
+				type: String
+			},
+			ondragend: {
+				type: String
+			}
+		},
+		update: function (newValue) {
+			this.createDraggable();
+		},
+		createDraggable: function () {
+			this.debounce('CREATE-DRAGGABLE', function () {
+				if(!this.element) {
+					return;
+				}
+				var self = this;
+				this.options = Polymer.Base.extend(this.options || {}, {
+					type: this.type,
+					bounds: this.bounds,
+					lockAxis: this.lockAxis !== false,
+					autoScroll: this.autoScroll,
+					onPress: function(e){
+						self.onpress && self.onpress(e);
+					},
+					onRelease: function(e){
+						self.onrelease && self.onrelease(e);
+					},
+					onDragStart: function(e){
+						self.ondragstart && self.ondragstart(e);
+					},
+					onDrag: function(e){
+						self.ondrag && self.ondrag(e);
+					},
+					onDragEnd: function(e){
+						self.ondragend && self.ondragend(e);
+					},
+					onClick: function(e){
+						self.onclick && self.onclick(e);
+					}
+				});
+
+				if (this.type === "rotation") {
+					this.options.bounds = {minRotation: this.minRotation, maxRotation: this.maxRotation};
+				}
+
+				this.draggable = Draggable.create(this.element, this.options);
+			}, 10);
+		},
+		created: function(){
+			this.addEventListener("dragstart", function(e){
+				console.log("drag start");
+			});
+		}
+	};
+</script>

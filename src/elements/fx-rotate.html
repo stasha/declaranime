@@ -1,0 +1,42 @@
+<dom-module id="fx-rotate">
+	<script>
+		Polymer({
+			is: "fx-rotate",
+			behaviors: [
+				window.declaranime.AnimationBehavior,
+				window.declaranime.RotationBehavior
+			]
+			
+//				,
+//				backward: function (element, context, onStart, onUpdate, onComplete) {
+//					this.fromOptions = {
+//						rotationX: this.fromX,
+//						rotationY: this.fromY,
+//						rotationZ: this.fromZ
+//					};
+//					this.toOptions = {
+//						rotationX: this.toX,
+//						rotationY: this.toY,
+//						rotationZ: this.toZ
+//					};
+//					this.options = extend({
+//						delay: this.delay,
+//						ease: this.ease,
+//						overwrite: this.overwrite,
+//						onStart: onStart,
+//						onUpdate: onUpdate,
+//						onComplete: onComplete,
+//						onCompleteParams: [this, element, context]
+//					}, this.toOptions);
+//					
+//					if (typeof this.fromX === "number" || typeof this.fromY === "number" || typeof this.fromZ === "number") {
+//						this.tween = this.provider.fromTo(element, this.speed, this.fromOptions, this.options);
+//					} else {
+//						this.tween = this.provider.to(element, this.speed, this.options);
+//					}
+//					
+//					return this.tween;
+//				}
+		});
+	</script>
+</dom-module>

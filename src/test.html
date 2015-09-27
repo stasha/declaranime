@@ -1,0 +1,58 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div>TODO write content</div>
+
+		<script>
+			var test = {
+				testFunction: function (e, b, c) {
+//					console.log(arguments);
+					console.log(e + " : " + b + " : " + c);
+				}
+			};
+			
+			
+
+			function stringToFunction(str) {
+				var newStr = str;
+				var reg = new RegExp(/\( *([^)]+?) *\)/).exec(str);
+				
+				if (reg[1]) {
+					var args = reg[1].replace(/\s*,\s*/g, ",").split(",");
+
+					for (var i = 0; i < args.length; ++i) {
+						args[i] = "this." + args[i];
+					}
+
+					newStr = str.replace(reg[0], "(" + args.join(",") + ")");
+				}
+				
+				var obj = {
+					execute: new Function(newStr)
+				};
+				return obj;
+			}
+
+			var func = stringToFunction("test.testFunction(e, b, c)");
+			func.execute.call(func);
+
+		</script>
+
+	</body>
+</html>

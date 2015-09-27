@@ -1,0 +1,20 @@
+<script>
+	window.declaranime.CssBehavior = {
+		properties: {
+			fromCss: {
+				type: String,
+				observer: "setFromCss"
+			},
+			toCss: {
+				type: String,
+				observer: "setToCss"
+			}
+		},
+		setFromCss: function (newValue) {
+			this.fromOptions = Polymer.Base.extend(this.fromOptions, JSON.parse(newValue));
+		},
+		setToCss: function (newValue) {
+			this.toOptions = Polymer.Base.extend(this.toOptions, JSON.parse(newValue));
+		}
+	};
+</script>

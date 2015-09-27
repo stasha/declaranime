@@ -1,0 +1,29 @@
+<dom-module id="fx-move">
+	<script>
+		Polymer({
+			is: "fx-move",
+			behaviors: [
+				window.declaranime.AnimationBehavior,
+				window.declaranime.PositionBehavior
+			],
+			backward: function (element, context, onStart, onUpdate, onComplete) {
+				this.element = element;
+
+				this.fromOptions = Polymer.Base.extend(this.fromOptions, {
+					x: this.toX,
+					y: this.toY
+				});
+				this.toOptions = Polymer.Base.extend(this.toOptions, {
+					x: this.fromX,
+					y: this.fromY,
+					onStart: onStart,
+					onUpdate: onUpdate,
+					onComplete: onComplete,
+					onCompleteParams: [this, element, context]
+				});
+
+				return this.play();
+			}
+		});
+	</script>
+</dom-module>
