@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TODO supply a title</title>
+		<title>&lt;declaranime /&gt;</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="style.css" />
 
 		<script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="elements/declaranime.html" />
 
 
 		<style>
-			body {
-				margin: 0;
-			}
 
-			.bg {
-				z-index: 0;
-				background: yellow;
-				width: 100%;
-				height: 20px;
-				position: absolute;
-				top: 0;
-				left: 0;
-			}
+			
 			.wr {
 				position: relative;
 				z-index: 2;
@@ -53,7 +44,7 @@
 				console.log("end");
 				console.log(e);
 			};
-			
+
 			var self = this;
 		</script>
 
@@ -89,7 +80,38 @@
 
 </head>
 <body>
-	<div class="bg"></div>
+	<header>
+		<h1><a href="#">&lt;declaranime /&gt;</a></h1>
+	</header>
+	<div class="content-wrapper">
+		<nav>
+			<ul>
+				<li><a href="#about">About</a></li>
+				<li><a href="#usage">Usage</a></li>
+				<li>
+					<a href="#examples">Examples</a>
+					<ul class="elements">
+						<li><a href="#examples/fx-declaranime">fx-declaranime</a></li>
+						<li><a href="#examples/fx-animate">fx-animate</a></li>
+						<li><a href="#examples/fx-class">fx-class</a></li>
+						<li><a href="#examples/fx-css">fx-css</a></li>
+						<li><a href="#examples/fx-dragg">fx-dragg</a></li>
+						<li><a href="#examples/fx-fade">fx-fade</a></li>
+						<li><a href="#examples/fx-move">fx-move</a></li>
+						<li><a href="#examples/fx-resize">fx-resize</a></li>
+						<li><a href="#examples/fx-rotate">fx-rotate</a></li>
+						<li><a href="#examples/fx-rotate-3d">fx-rotate-3d</a></li>
+						<li><a href="#examples/fx-scale">fx-scale</a></li>
+						<li><a href="#examples/fx-skew">fx-skew</a></li>
+						<li><a href="#examples/fx-slide">fx-slide</a></li>
+						<li><a href="#examples/fx-timeline">fx-timeline</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<div class="content">
+			
+		<div class="bg"></div>
 	<div class="wr">
 		<div class="box"></div>
 		<div class="box"></div>
@@ -102,7 +124,13 @@
 
 <fx-dragg onclick="console.log(event)" ondragend="window.declaranime.complete(event)" element=".box" lock-axis min-rotation="0" max-rotation="90"></fx-dragg>
 
+		</div>
 
+	</div>
+	<footer>
+		fdsf
+	</footer>
+	
 
 </body>
 </html>

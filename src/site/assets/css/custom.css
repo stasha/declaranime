@@ -1,0 +1,144 @@
+#banner {
+	padding: 20px;
+}
+
+#features-wrapper {
+	padding-top: 20px;
+}
+
+#features-wrapper .container > h2 {
+    margin-bottom: 49px;
+    font-size: 1.8em;
+    color: white;
+}
+
+#features h2:before {
+	content: '<';
+}
+
+#features h2:after {
+	content: '>';
+}
+
+pre {
+	font-family: Consolas,monospace;
+	padding: 10px;
+	margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    /*border: 1px solid rgba(255,255,255, 0.2);*/
+    font-size: 16px;
+    word-wrap: break-word;
+    text-align: left;
+	line-height: 1em;
+}
+
+pre.mid {
+	font-size: 13px;
+	line-height: 0.8em;
+}
+
+pre.small {
+	font-size: 12px;
+	line-height: 0.65em;
+	background: none;
+}
+
+.homepage-example {
+	width: 100%;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+	margin-bottom: 15px;
+	position: relative;
+	overflow: hidden;
+}
+
+
+.moving-box,
+.rotating-box,
+.timeline-box,
+.dragg-box {
+	width: 30px;
+	height: 30px;
+	background: rgba(0,0,0, 0.5);
+	position: relative;
+	top: 10px;
+	left: 10px;
+	margin-bottom: 3px;
+}
+
+.moving-list {
+	margin-left: 10px;
+	color: white;
+}
+.moving-list li {
+	font-size: 0.8em;
+    font-family: arial;
+    text-shadow: none;
+    font-weight: normal;
+    color: black;
+}
+
+.moving-box {
+	border-radius: 20px;
+}
+
+.timeline-box {
+	width: 50px;
+	border-radius: 20px;
+}
+
+.homepage-example button {
+	border: 0;
+	color: white;
+	background: rgba(0,0,0, 0.3);
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	padding: 5px 10px;
+	cursor: pointer;
+	line-height: 16px;
+}
+
+.flex,
+.flex-row,
+.flex-column-center {
+	display: flex;
+	justify-content: center;
+}
+
+.flex-column-center {
+	flex-direction: column;
+	align-items: center;
+}
+
+.flex-row {
+	justify-content: center;
+	align-items: stretch;
+}
+
+@media screen and (max-width: 736px) {
+	.flex-row {
+		flex-direction: column;
+	}
+	.flex-row section {
+		width: 100%;
+	}
+}
+
+.tag-list li {
+	display: inline;
+}
+
+.tag-list li a {
+	color: rgba(255,255,255, 0.5);
+	text-decoration: none;
+}
+.tag-list li a:before {
+	content: '<';
+}
+.tag-list li a:after {
+	content: '>,';
+}
+.tag-list li:last-child a:after {
+	content: '>';
+}
