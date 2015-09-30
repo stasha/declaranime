@@ -51,7 +51,7 @@
 										<li><a href="#examples/fx-animate">fx-animate</a></li>
 										<li><a href="#examples/fx-class">fx-class</a></li>
 										<li><a href="#examples/fx-css">fx-css</a></li>
-										<li><a href="#examples/fx-dragg">fx-dragg</a></li>
+										<li><a href="#examples/fx-drag">fx-drag</a></li>
 										<li><a href="#examples/fx-fade">fx-fade</a></li>
 										<li><a href="#examples/fx-move">fx-move</a></li>
 										<li><a href="#examples/fx-resize">fx-resize</a></li>
@@ -88,7 +88,7 @@
 								<!-- Feature #1 -->
 								<section>
 									<h2>fx-move</h2>
-									Move html &lt;li> elements
+									Move html elements
 									<div class="homepage-example">
 										<ul class="moving-list">
 											<li> Bullet 1</li>
@@ -116,7 +116,7 @@
 								<!-- Feature #2 -->
 								<section>
 									<h2>fx-rotate-3d</h2>
-									Rotate html div elements
+									Rotate html elements
 									<div class="homepage-example">
 										<div class="flex-column-center">
 											<div class="rotating-box"></div>
@@ -174,25 +174,25 @@
 								<!-- Feature #4 -->
 								<section>
 									<h2>fx-drag</h2>
-									Dragg html div elements
+									Drag html elements
 									<div id="bound-box" class="homepage-example">
-										<div class="dragg-box dragg-box0"></div>
-										<div class="dragg-box dragg-box1"></div>
-										<div class="dragg-box dragg-box2"></div>
-										<fx-dragg element=".dragg-box0" bounds="#bound-box"></fx-dragg>
-										<fx-dragg element=".dragg-box1" bounds="#bound-box" lock-axis></fx-dragg>
-										<fx-dragg element=".dragg-box2" type="rotation"></fx-dragg>
+										<div class="drag-box drag-box0"></div>
+										<div class="drag-box drag-box1"></div>
+										<div class="drag-box drag-box2"></div>
+										<fx-drag element=".drag-box0" bounds="#bound-box"></fx-drag>
+										<fx-drag element=".drag-box1" bounds="#bound-box" lock-axis></fx-drag>
+										<fx-drag element=".drag-box2" type="rotation"></fx-drag>
 									</div>
 									
-									<pre class="small">&lt;fx-dragg element=".dragg-box0" 
+									<pre class="small">&lt;fx-drag element=".drag-box0" 
 	bounds="#bound-box">
-&lt;/fx-dragg>
-&lt;fx-dragg element=".dragg-box1" 
+&lt;/fx-drag>
+&lt;fx-drag element=".drag-box1" 
+	bounds="#bound-box" lock-axis>
+&lt;/fx-drag>
+&lt;fx-drag element=".drag-box2" 
 	bounds="#bound-box" 
-	lock-axis>&lt;/fx-dragg>
-&lt;fx-dragg element=".dragg-box2" 
-	bounds="#bound-box" type="y">
-&lt;/fx-dragg></pre>
+	type="rotation">&lt;/fx-drag></pre>
 								</section>
 
 							</div>
@@ -276,7 +276,7 @@
 										<div class="2u 12u(mobile)">
 											<ul class="link-list last-child">
 												<li><a href="http://greensock.com/gsap">GSAP</a> </li>
-												<li><a href="http://greensock.com/draggable">Draggable</a></li>
+												<li><a href="http://greensock.com/dragable">Draggable</a></li>
 												<li><a href="http://greensock.com/SplitText">SplitText</a></li>
 												<li><a href="http://greensock.com/club/">Club GreenSock</a></li>
 											</ul>
