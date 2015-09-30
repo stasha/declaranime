@@ -100,7 +100,7 @@
 				});
 
 				if (this.type === "rotation") {
-					this.options.bounds = {minRotation: this.minRotation, maxRotation: this.maxRotation};
+					this.options.bounds = {minRotation: this.minRotation || 0, maxRotation: this.maxRotation || 300};
 				}
 
 				this.draggable = Draggable.create(this.element, this.options);

@@ -87,6 +87,17 @@ pre.small {
 	border-radius: 20px;
 }
 
+.dragg-box {
+	border-radius: 20px;
+}
+
+.dragg-box2 {
+	margin-top: 20px;
+	border-radius: 0;
+	width: 50px;
+	cursor: move;
+}
+
 .homepage-example button {
 	border: 0;
 	color: white;
