@@ -131,7 +131,7 @@ pre.small {
 
 .tag-list li a {
 	text-decoration: none;
-	color: rgba(0, 0, 0, 0.5);
+	color: rgba(0, 0, 0, 0.75);
     text-decoration: none;
     width: 106px;
     display: inline-block;
