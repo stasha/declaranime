@@ -1,19 +1,19 @@
 <script>
-	window.declaranime.CssBehavior = {
+	window.declaranime.StyleBehavior = {
 		properties: {
-			fromCss: {
+			fromStyle: {
 				type: String,
-				observer: "setFromCss"
+				observer: "setFromStyle"
 			},
-			toCss: {
+			toStyle: {
 				type: String,
-				observer: "setToCss"
+				observer: "setToStyle"
 			}
 		},
-		setFromCss: function (newValue) {
+		setFromStyle: function (newValue) {
 			this.fromOptions = Polymer.Base.extend(this.fromOptions, JSON.parse(newValue));
 		},
-		setToCss: function (newValue) {
+		setToStyle: function (newValue) {
 			this.toOptions = Polymer.Base.extend(this.toOptions, JSON.parse(newValue));
 		}
 	};

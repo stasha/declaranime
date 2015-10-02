@@ -9,7 +9,11 @@
 		"page-header": {},
 		"fx-drag": {},
 		"page-head": {},
-		"dom-module": {},
+		"dom-module": {
+			"attributes": {
+				"id": {}
+			}
+		},
 		"fx-animate": {}
 	},
 	"attributes": {

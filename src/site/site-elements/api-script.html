@@ -1,0 +1,159 @@
+<dom-module id="api-script">
+	<script>
+		Polymer({
+			is: "api-script",
+			properties: {
+				selector: {
+					tupe: String,
+					value: "#fx-element"
+				}
+			},
+			attached: function () {
+				var el = document.querySelector(this.selector);
+				var props = el.properties;
+				var behaviors = el.behaviors;
+
+				for (var i = 0; i < behaviors.length; ++i) {
+					var behavior = behaviors[i];
+					var props = behavior.properties;
+
+					var behaviorName = "";
+					for (var b in window.declaranime) {
+						if (window.declaranime[b] === behavior) {
+							behaviorName = b;
+							break;
+						}
+					}
+
+					var ul = document.createElement("ul");
+					ul.classList.add("api-list")
+					var section = document.createElement("h3");
+					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName;
+					document.querySelector(".inherited").appendChild(section);
+					document.querySelector(".inherited").appendChild(ul);
+
+
+					var list = "";
+					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-label">default:</span> <span class="default-value">value</span><span class="your-value">your value</span></li>';
+					for (var n in props) {
+						var type = (props[n].type && (props[n].type + "").split(" ")[1].replace("()", ""));
+						var defValue = el[n];
+						var html = '<span class="property">' + n + '</span>';
+						html += ' : <span class="type">' + (type || "") + '</span>';
+						html += ' <span class="default-label">' + (defValue ? "default" : "") + '</span><span class="default-value"> ' + (defValue || "") + '</span>';
+
+						switch (type) {
+							case "Boolean":
+								html += '<span class="your-value"><input type="checkbox" name="' + n + '" ' + (defValue ? 'checked' : '') + '/></span>';
+								break;
+							case "String":
+							case "Number":
+							case "Object":
+								var easing = [
+									"Power0.easeNone",
+									"Power1.easeIn",
+									"Power1.easeInOut",
+									"Power1.easeOut",
+									"Power2.easeIn",
+									"Power2.easeInOut",
+									"Power2.easeOut",
+									"Power3.easeIn",
+									"Power3.easeInOut",
+									"Power3.easeOut",
+									"Power4.easeIn",
+									"Power4.easeInOut",
+									"Power4.easeOut",
+									"Back.easeIn",
+									"Back.easeInOut",
+									"Back.easeOut",
+									"Elastic.easeIn",
+									"Elastic.easeInOut",
+									"Elastic.easeOut",
+									"Bounce.easeIn",
+									"Bounce.easeInOut",
+									"Bounce.easeOut",
+									"Rough.ease.config",
+									"SlowMo.ease.config",
+									"SteppedEase.config",
+									"Circ.easeIn",
+									"Circ.easeInOut",
+									"Circ.easeOut",
+									"Expo.easeIn",
+									"Expo.easeInOut",
+									"Expo.easeOut",
+									"Syne.easeIn",
+									"Syne.easeInOut",
+									"Syne.easeOut",
+								]
+								if (n === "ease") {
+									html += '<span class="your-value">';
+									html += '<select name="' + n + '">';
+									for (var o = 0; o < easing.length; ++o) {
+										html += '<option ' + (defValue === easing[o] ? "selected" : "") + ' >' + easing[o] + '</option>'
+									}
+									html += '</select>';
+									html += '</span>';
+								} else {
+									html += '<span class="your-value"><input type="text" name="' + n + '"  value="' + (defValue || '') + '"	/></span>';
+								}
+								break;
+
+						}
+
+						list += '<li class="api-item">' + html + '</li>';
+					}
+					ul.innerHTML = list;
+					var self = this;
+					function updateValues(e){
+						var val = e.target.value;
+						if(e.target.type === 'checkbox'){
+							val = e.target.checked;
+						}
+						el[e.target.name] = val;
+						self.createExample();
+					};
+					ul.addEventListener("change", updateValues);
+					ul.addEventListener("keyup", updateValues);
+				}
+				this.createExample();
+			},
+			createExample: function () {
+				var el = document.querySelector(this.selector);
+				var tagName = el.tagName.toLowerCase();
+				var ex = document.querySelector("#fx-example");
+
+				var behaviors = el.behaviors;
+				var html = '<span class="tag-name">&lt;' + tagName + "</span>";
+
+				for (var i = 0; i < behaviors.length; ++i) {
+					var behavior = behaviors[i];
+					var props = behavior.properties;
+					
+					var behaviorName = "";
+					for (var b in window.declaranime) {
+						if (window.declaranime[b] === behavior) {
+							behaviorName = b;
+							break;
+						}
+					}
+					
+					for(var p in props){
+						if((behaviorName === "AnimationBehavior" && el[p]) || (behaviorName !== "AnimationBehavior" && el[p] != null)){
+							var attr = p.replace(/\W+/g, '-').replace(/([a-z\d])([A-Z]+)/g, '$1-$2').toLowerCase();
+							if(p === "fromStyle" || p === "toStyle"){
+								html += ' <span class="tag-attribute">' + attr +'=\'<span class="attribute-value">'+el[p]+'</span>\'</span>';
+							} else {
+								html += ' <span class="tag-attribute">' + attr +'="<span class="attribute-value">'+el[p]+'</span>"</span>';
+							}
+						}
+					}
+
+				}
+
+
+				html += '<span class="tag-name">>&lt;/' + tagName + '></span>';
+				ex.innerHTML = html;
+			}
+		});
+	</script>
+</dom-module>

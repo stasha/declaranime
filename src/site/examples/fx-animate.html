@@ -7,9 +7,12 @@
 <html>
 	<head>
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<link rel="import" href="../../elements/declaranime.html" />
+		<script src="../assets/js/components-ready.js"></script>
 		<link rel="import" href="../site-elements/page-head.html" />
 		<link rel="import" href="../site-elements/examples-navigation.html" />
+		<link rel="import" href="../site-elements/api-script.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
@@ -33,10 +36,9 @@
 					<li> Bullet 2</li>
 					<li> Bullet 3</li>
 				</ul>
-				<fx-animate id="fx-element"></fx-animate>
-				<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
-				<button onclick="document.getElementById('moving-list').start()">Start</button>
-				
+				<fx-animate id="fx-element" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
+				<button onclick="document.getElementById('fx-element').start()">Start</button>
+				<div id="fx-example"></div>
 				<ul class="properties"></ul>
 				<div class="inherited"></div>
 			</section>
@@ -46,54 +48,7 @@
 </page-content>
 
 <page-footer></page-footer>
-
-<script>
-	
-	var el = document.querySelector("#fx-element");
-	var props = el.properties;
-	var behaviors = el.behaviors;
-	
-	for(var i = 0; i < behaviors.length; ++i){
-		var behavior = behaviors[i];
-		var props = behavior.properties;
-		
-		var behaviorName = "";
-		for(var b in window.declaranime){
-			if(window.declaranime[b] === behavior){
-				behaviorName = b;
-				break;
-			}
-		}
-		
-		var ul = document.createElement("ul");
-		ul.classList.add("api-list")
-		var section = document.createElement("h3");
-		section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName;
-		document.querySelector(".inherited").appendChild(section);
-		document.querySelector(".inherited").appendChild(ul);
-		
-		var list = "";
-		list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-label"></span><span>default value</span></li>';
-		for(var n in props){
-			var type = (props[n].type && (props[n].type+"").split(" ")[1].replace("()", ""));
-			var defValue = props[n].value;
-			var html = '<span class="property">' + n + '</span>';
-			if(type){
-				html += ' : <span class="type">' + type + '</span>';
-			}
-			if(defValue != null){
-				html += ' <span class="default-label"> default:</span><span class="default-value"> ' + defValue + '</span>';
-			}
-			
-			list += '<li class="api-item">' + html + '</li>';
-		}
-		ul.innerHTML = list;
-	}
-	console.log(el.properties);	
-	console.log(el.behaviors);	
-	
-</script>
-
+<api-script></api-script>
 
 </body>
 </html>
