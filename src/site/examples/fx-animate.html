@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<!--
+	Halcyonic by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="import" href="../../elements/declaranime.html" />
+		<link rel="import" href="../site-elements/page-head.html" />
+		<link rel="import" href="../site-elements/examples-navigation.html" />
+
+	<page-head title="&lt;declaranime />"></page-head>
+</head>
+<body class="subpage">
+<page-header></page-header>
+
+<page-content>
+	<div class="row">
+		<examples-navigation class="3u 12u(mobile)"></examples-navigation>
+
+		<div class="9u 12u(mobile) important(mobile)">
+
+			<section>
+				<header>
+					<h2>fx-animate</h2>
+					<h3>Animate anything</h3>
+				</header>
+
+				<ul class="moving-list">
+					<li> Bullet 1</li>
+					<li> Bullet 2</li>
+					<li> Bullet 3</li>
+				</ul>
+				<fx-animate id="fx-element"></fx-animate>
+				<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
+				<button onclick="document.getElementById('moving-list').start()">Start</button>
+				
+				<ul class="properties"></ul>
+				<div class="inherited"></div>
+			</section>
+
+		</div>
+	</div>
+</page-content>
+
+<page-footer></page-footer>
+
+<script>
+	
+	var el = document.querySelector("#fx-element");
+	var props = el.properties;
+	var behaviors = el.behaviors;
+	
+	for(var i = 0; i < behaviors.length; ++i){
+		var behavior = behaviors[i];
+		var props = behavior.properties;
+		
+		var behaviorName = "";
+		for(var b in window.declaranime){
+			if(window.declaranime[b] === behavior){
+				behaviorName = b;
+				break;
+			}
+		}
+		
+		var ul = document.createElement("ul");
+		ul.classList.add("api-list")
+		var section = document.createElement("h3");
+		section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName;
+		document.querySelector(".inherited").appendChild(section);
+		document.querySelector(".inherited").appendChild(ul);
+		
+		var list = "";
+		list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-label"></span><span>default value</span></li>';
+		for(var n in props){
+			var type = (props[n].type && (props[n].type+"").split(" ")[1].replace("()", ""));
+			var defValue = props[n].value;
+			var html = '<span class="property">' + n + '</span>';
+			if(type){
+				html += ' : <span class="type">' + type + '</span>';
+			}
+			if(defValue != null){
+				html += ' <span class="default-label"> default:</span><span class="default-value"> ' + defValue + '</span>';
+			}
+			
+			list += '<li class="api-item">' + html + '</li>';
+		}
+		ul.innerHTML = list;
+	}
+	console.log(el.properties);	
+	console.log(el.behaviors);	
+	
+</script>
+
+
+</body>
+</html>

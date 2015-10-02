@@ -1,0 +1,18 @@
+{
+	"elements": {
+		"fx-timeline": {},
+		"page-footer": {},
+		"fx-rotate-3d": {},
+		"fx-move": {},
+		"fx-rotate": {},
+		"page-content": {},
+		"page-header": {},
+		"fx-drag": {},
+		"page-head": {},
+		"dom-module": {},
+		"fx-animate": {}
+	},
+	"attributes": {
+		"title": {}
+	}
+}

@@ -6,100 +6,76 @@
 -->
 <html>
 	<head>
-		<title>&lt;declaranime /&gt;</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<link rel="stylesheet" href="assets/css/custom.css" />
-
 		<script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../elements/declaranime.html" />
+		<link rel="import" href="site-elements/page-head.html" />
 
-	</head>
-	<body>
-		<a href="https://github.com/stasha/declaranime"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-		<div id="page-wrapper">
+	<page-head title="&lt;declaranime />"></page-head>
 
-			<!-- Header -->
-			<div id="header-wrapper">
-				<header id="header" class="container">
-					<div class="row">
-						<div class="12u">
+</head>
+<body>
+<page-header>
+	<div id="banner">
+		<div class="container">
+			<div class="row">
+				<div class="6u 12u(mobile)">
 
-							<!-- Logo -->
-							<h1><a href="#" id="logo">&lt;declaranime /&gt;</a></h1>
+					<!-- Banner Copy -->
+					<p>Create super cool web animations in no time!<br />Super easy to use and super easy to learn!</p>
+					<!--<a href="#" class="button-big">Animation examples!</a>-->
+					<ul class="tag-list">
+						<li><a href="#examples/fx-animate">fx-animate</a></li>
+						<li><a href="#examples/fx-class">fx-class</a></li>
+						<li><a href="#examples/fx-css">fx-css</a></li>
+						<li><a href="#examples/fx-drag">fx-drag</a></li>
+						<li><a href="#examples/fx-fade">fx-fade</a></li>
+						<li><a href="#examples/fx-move">fx-move</a></li>
+						<li><a href="#examples/fx-resize">fx-resize</a></li>
+						<li><a href="#examples/fx-rotate">fx-rotate</a></li>
+						<li><a href="#examples/fx-rotate-3d">fx-rotate-3d</a></li>
+						<li><a href="#examples/fx-scale">fx-scale</a></li>
+						<li><a href="#examples/fx-skew">fx-skew</a></li>
+						<li><a href="#examples/fx-slide">fx-slide</a></li>
+						<li><a href="#examples/fx-timeline">fx-timeline</a></li>
+					</ul>
 
-							<!-- Nav -->
-<!--							<nav id="nav">
-								<a href="twocolumn2.html">Examples</a>
-							</nav>-->
+				</div>
+				<div class="6u 12u(mobile)">
 
-						</div>
-					</div>
-				</header>
-				<div id="banner">
-					<div class="container">
-						<div class="row">
-							<div class="6u 12u(mobile)">
-
-								<!-- Banner Copy -->
-								<p>Create super cool web animations in no time!<br />Super easy to use and super easy to learn!</p>
-								<!--<a href="#" class="button-big">Animation examples!</a>-->
-									<ul class="tag-list">
-										<li><a href="#examples/fx-animate">fx-animate</a></li>
-										<li><a href="#examples/fx-class">fx-class</a></li>
-										<li><a href="#examples/fx-css">fx-css</a></li>
-										<li><a href="#examples/fx-drag">fx-drag</a></li>
-										<li><a href="#examples/fx-fade">fx-fade</a></li>
-										<li><a href="#examples/fx-move">fx-move</a></li>
-										<li><a href="#examples/fx-resize">fx-resize</a></li>
-										<li><a href="#examples/fx-rotate">fx-rotate</a></li>
-										<li><a href="#examples/fx-rotate-3d">fx-rotate-3d</a></li>
-										<li><a href="#examples/fx-scale">fx-scale</a></li>
-										<li><a href="#examples/fx-skew">fx-skew</a></li>
-										<li><a href="#examples/fx-slide">fx-slide</a></li>
-										<li><a href="#examples/fx-timeline">fx-timeline</a></li>
-									</ul>
-
-							</div>
-							<div class="6u 12u(mobile)">
-
-								<p>Install:</p>
-								<pre>&gt; bower install -save stasha/declaranime</pre>
-								<span>And than include in your html:</span>	
-								<pre class="mid">&lt;script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+					<p>Install:</p>
+					<pre>&gt; bower install -save stasha/declaranime</pre>
+					<span>And than include in your html:</span>	
+					<pre class="mid">&lt;script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js">&lt;/script>
 &lt;link rel="import" 
 	href="/bower_components/declaranime/src/elements/declaranime.html" /></pre>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</page-header>
 
-			<!-- Features -->
-			<div id="features-wrapper">
-				<div id="features">
-					<div class="container">
-<!--						<h2>Simple examples</h2>-->
-						<div class="row">
-							<div class="3u 12u(mobile)">
-								<!-- Feature #1 -->
-								<section>
-									<h2>fx-move</h2>
-									Move html elements
-									<div class="homepage-example">
-										<ul class="moving-list">
-											<li> Bullet 1</li>
-											<li> Bullet 2</li>
-											<li> Bullet 3</li>
-										</ul>
-										<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
-										<button onclick="document.getElementById('moving-list').start()">Start</button>
-									</div>
-									
-									<pre class="small">&lt;fx-move 
+<!-- Features -->
+<div id="features-wrapper">
+	<div id="features">
+		<div class="container">
+			<!--<h2>Simple examples</h2>-->
+			<div class="row">
+				<div class="3u 12u(mobile)">
+					<!-- Feature #1 -->
+					<section>
+						<h2>fx-move</h2>
+						Move html elements
+						<div class="homepage-example">
+							<ul class="moving-list">
+								<li> Bullet 1</li>
+								<li> Bullet 2</li>
+								<li> Bullet 3</li>
+							</ul>
+							<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
+							<button onclick="document.getElementById('moving-list').start()">Start</button>
+						</div>
+
+						<pre class="small">&lt;fx-move 
 	id="moving-list" 
 	element=".moving-list li" 
 	stagger="0.2" 
@@ -108,26 +84,26 @@
 	speed="2" 
 	ease="Elastic.easeOut">
 &lt;/fx-move></pre>
-								</section>
+					</section>
 
+				</div>
+				<div class="3u 12u(mobile)">
+
+					<!-- Feature #2 -->
+					<section>
+						<h2>fx-rotate-3d</h2>
+						Rotate html elements
+						<div class="homepage-example">
+							<div class="flex-column-center">
+								<div class="rotating-box"></div>
+								<div class="rotating-box"></div>
+								<div class="rotating-box"></div>
 							</div>
-							<div class="3u 12u(mobile)">
+							<fx-rotate-3d id="rotating-box" element=".rotating-box" stagger="0.3" to-rotation-x="+=180" to-rotation-z="+=180" speed="3"  ease="Elastic.easeOut"></fx-rotate-3d>
+							<button onclick="document.getElementById('rotating-box').start()">Start</button>
+						</div>
 
-								<!-- Feature #2 -->
-								<section>
-									<h2>fx-rotate-3d</h2>
-									Rotate html elements
-									<div class="homepage-example">
-										<div class="flex-column-center">
-											<div class="rotating-box"></div>
-											<div class="rotating-box"></div>
-											<div class="rotating-box"></div>
-										</div>
-										<fx-rotate-3d id="rotating-box" element=".rotating-box" stagger="0.3" to-rotation-x="+=180" to-rotation-z="+=180" speed="3"  ease="Elastic.easeOut"></fx-rotate-3d>
-										<button onclick="document.getElementById('rotating-box').start()">Start</button>
-									</div>
-									
-									<pre class="small">&lt;fx-rotate-3d 
+						<pre class="small">&lt;fx-rotate-3d 
 	id="rotating-box" 
 	element=".rotating-box" 
 	stagger="0.3" 
@@ -136,27 +112,27 @@
 	speed="3"
 	ease="Elastic.easeOut">
 &lt;/fx-rotate-3d></pre>
-								</section>
+					</section>
 
-							</div>
-							<div class="3u 12u(mobile)">
+				</div>
+				<div class="3u 12u(mobile)">
 
-								<!-- Feature #3 -->
-								<section>
-									<h2>fx-timeline</h2>
-									Create complex html animations
-									<div class="homepage-example">
-										<div class="timeline-box"></div>
-										<fx-timeline element=".timeline-box" id="timeline" yoyo repeat="2">
-											<fx-move to-x="150"></fx-move>
-											<fx-move to-y="80"></fx-move>
-											<fx-rotate to-rotation="+=180"></fx-rotate>
-											<fx-move to-x="0" to-y="0"></fx-move>
-										</fx-timeline>
-										<button onclick="document.getElementById('timeline').start()">Start</button>
-									</div>
-									
-									<pre class="small">&lt;fx-timeline element=".timeline-box" 
+					<!-- Feature #3 -->
+					<section>
+						<h2>fx-timeline</h2>
+						Create complex html animations
+						<div class="homepage-example">
+							<div class="timeline-box"></div>
+							<fx-timeline element=".timeline-box" id="timeline" yoyo repeat="2">
+								<fx-move to-x="150"></fx-move>
+								<fx-move to-y="80"></fx-move>
+								<fx-rotate to-rotation="+=180"></fx-rotate>
+								<fx-move to-x="0" to-y="0"></fx-move>
+							</fx-timeline>
+							<button onclick="document.getElementById('timeline').start()">Start</button>
+						</div>
+
+						<pre class="small">&lt;fx-timeline element=".timeline-box" 
  id="timeline" yoyo repeat="2">
    &lt;fx-move to-x="150">&lt;/fx-move>
    &lt;fx-move to-y="80">&lt;/fx-move>
@@ -165,26 +141,26 @@
    &lt;fx-move to-x="0" to-y="0">
    &lt;/fx-move>
 &lt;/fx-timeline></pre>
-				
-								</section>
 
-							</div>
-							<div class="3u 12u(mobile)">
+					</section>
 
-								<!-- Feature #4 -->
-								<section>
-									<h2>fx-drag</h2>
-									Drag html elements
-									<div id="bound-box" class="homepage-example">
-										<div class="drag-box drag-box0"></div>
-										<div class="drag-box drag-box1"></div>
-										<div class="drag-box drag-box2"></div>
-										<fx-drag element=".drag-box0" bounds="#bound-box"></fx-drag>
-										<fx-drag element=".drag-box1" bounds="#bound-box" lock-axis></fx-drag>
-										<fx-drag element=".drag-box2" type="rotation"></fx-drag>
-									</div>
-									
-									<pre class="small">&lt;fx-drag element=".drag-box0" 
+				</div>
+				<div class="3u 12u(mobile)">
+
+					<!-- Feature #4 -->
+					<section>
+						<h2>fx-drag</h2>
+						Drag html elements
+						<div id="bound-box" class="homepage-example">
+							<div class="drag-box drag-box0"></div>
+							<div class="drag-box drag-box1"></div>
+							<div class="drag-box drag-box2"></div>
+							<fx-drag element=".drag-box0" bounds="#bound-box"></fx-drag>
+							<fx-drag element=".drag-box1" bounds="#bound-box" lock-axis></fx-drag>
+							<fx-drag element=".drag-box2" type="rotation"></fx-drag>
+						</div>
+
+						<pre class="small">&lt;fx-drag element=".drag-box0" 
 	bounds="#bound-box">
 &lt;/fx-drag>
 &lt;fx-drag element=".drag-box1" 
@@ -193,169 +169,74 @@
 &lt;fx-drag element=".drag-box2" 
 	bounds="#bound-box" 
 	type="rotation">&lt;/fx-drag></pre>
-								</section>
+					</section>
 
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
 
-			<!-- Content -->
-			<div id="content-wrapper">
-				<div id="content">
-					<div class="container">
-						<div class="row flex-row">
-							<div class="4u 12u(mobile) flex">
+<page-content>
 
-								<!-- Box #1 -->
-								<section>
-									<header>
-										<h2>What is &lt;declaranime /></h2>
-										<h3>In a few words...</h3>
-									</header>
-									<p>
-										&lt;declaranime /> is tiny library for creating html animations in declarative (html) way.
-										It is built on top of the state of the art libraries: 
-										<a href="http://greensock.com/gsap">GSAP</a>,
-										<a href="http://webcomponents.org">WebComponents</a> and <a href="https://www.polymer-project.org/1.0/">Polymer</a>.
-										More precisely, &lt;declaranime /> is just a simple wrapper around <a href="http://greensock.com/gsap">GSAP</a> thus
-										all real cool animation algorithms and logic are handled by <a href="http://greensock.com/gsap">GSAP</a>.
-									</p>
-								</section>
 
-							</div>
-							<div class="4u 12u(mobile) flex">
+	<div class="row flex-row">
+		<div class="4u 12u(mobile) flex">
 
-								<!-- Box #2 -->
-								<section>
-									<header>
-										<h2>Facts about &lt;declaranime /></h2>
-										<h3>In a few points...</h3>
-									</header>
-									<ul class="check-list">
-										<li>Super easy to install</li>
-										<li>Super easy to learn</li>
-										<li>Super easy to use</li>
-										<li>Super easy to extend</li>
-									</ul>
-								</section>
-
-							</div>
-							<div class="4u 12u(mobile) flex">
-
-								<!-- Box #3 -->
-								<section>
-									<header>
-										<h2>More about &lt;declaranime /></h2>
-										<h3>In short...</h3>
-									</header>
-									<p>&lt;declaranime /> was born as a "side effect" to other project and that's why it is built on top of these technologies.
-										Because project size was never a concern, &lt;declaranime /> uses TweenMax and TimelineMax libraries as default animation "providers". 
-										If file size concerns you, you can modify "declaranime.html" file and use TweenLite and TimelineLite with desired plugins.
-									</p>
-								</section>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Footer -->
-			<div id="footer-wrapper">
-				<footer id="footer" class="container">
-					<div class="row">
-						<div class="12u 12u(mobile)">
-
-							<!-- Links -->
-							<section>
-								<h2>Really Coooool Stuff</h2>
-								<div>
-									<div class="row">
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li><a href="http://greensock.com/gsap">GSAP</a> </li>
-												<li><a href="http://greensock.com/dragable">Draggable</a></li>
-												<li><a href="http://greensock.com/SplitText">SplitText</a></li>
-												<li><a href="http://greensock.com/club/">Club GreenSock</a></li>
-											</ul>
-										</div>
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li> <a href="https://www.polymer-project.org/1.0/">Polymer</a></li>
-												<li><a href="https://www.polymer-project.org/1.0/docs/start/what-is-polymer.html">What is Polymer</a></li>
-												<li><a href="https://www.polymer-project.org/1.0/docs/start/getting-the-code.html">Get the Polymer</a></li>
-												<li><a href="https://www.polymer-project.org/1.0/docs/devguide/feature-overview.html">Polymer developer guide</a></li>
-											</ul>
-										</div>
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li><a href="https://github.com/stasha/nerve">Nerve</a></li>
-												<li><a href="https://github.com/visionmedia/page.js">Page.js</a></li>
-												<li><a href="https://github.com/visionmedia/superagent">SuperAgent</a></li>
-												<li><a href="http://riotjs.com">Riot.js</a></li>
-											</ul>
-										</div>
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li><a href="http://konvajs.github.io">Konva</a></li>
-												<li><a href="http://threejs.org">Three.js</a></li>
-												<li><a href="http://www.babylonjs.com">Babylon.js</a></li>
-												<li><a href="https://github.com/flyover/box2d.js">box2d.js</a></li>
-											</ul>
-										</div>
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li><a href="http://snapsvg.io">Snap.svg</a></li>
-												<li><a href="http://raphaeljs.com">Raphaël</a></li>
-												<li><a href="http://svgjs.com">SVG.js</a></li>
-												<li><a href="http://d3js.org">D3.js</a></li>
-											</ul>
-										</div>
-										<div class="2u 12u(mobile)">
-											<ul class="link-list last-child">
-												<li><a href="http://www.createjs.com">CreateJS</a></li>
-												<li></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</section>
-
-						</div>
-<!--						<div class="4u 12u(mobile)">
-
-							 Blurb 
-							<section>
-								<h2>An Informative Text Blurb</h2>
-								<p>
-									Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse eu
-									varius nibh. Suspendisse vitae magna eget odio amet mollis. Duis neque nisi,
-									dapibus sed mattis quis, sed rutrum accumsan sed. Suspendisse eu varius nibh
-									lorem ipsum amet dolor sit amet lorem ipsum consequat gravida justo mollis.
-								</p>
-							</section>
-
-						</div>-->
-					</div>
-				</footer>
-			</div>
-
-			<!-- Copyright -->
-			<div id="copyright">
-				&copy; &lt;declaranime />. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a>
-			</div>
+			<!-- Box #1 -->
+			<section>
+				<header>
+					<h2>What is &lt;declaranime /></h2>
+					<h3>In a few words...</h3>
+				</header>
+				<p>
+					&lt;declaranime /> is tiny library for creating html animations in declarative (html) way.
+					It is built on top of the state of the art libraries: 
+					<a href="http://greensock.com/gsap">GSAP</a>,
+					<a href="http://webcomponents.org">WebComponents</a> and <a href="https://www.polymer-project.org/1.0/">Polymer</a>.
+					More precisely, &lt;declaranime /> is just a simple wrapper around <a href="http://greensock.com/gsap">GSAP</a> thus
+					all real cool animation algorithms and logic are handled by <a href="http://greensock.com/gsap">GSAP</a>.
+				</p>
+			</section>
 
 		</div>
+		<div class="4u 12u(mobile) flex">
 
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/skel.min.js"></script>
-		<script src="assets/js/skel-viewport.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script src="assets/js/main.js"></script>
+			<!-- Box #2 -->
+			<section>
+				<header>
+					<h2>Facts about &lt;declaranime /></h2>
+					<h3>In a few points...</h3>
+				</header>
+				<ul class="check-list">
+					<li>Super easy to install</li>
+					<li>Super easy to learn</li>
+					<li>Super easy to use</li>
+					<li>Super easy to extend</li>
+				</ul>
+			</section>
 
-	</body>
+		</div>
+		<div class="4u 12u(mobile) flex">
+
+			<!-- Box #3 -->
+			<section>
+				<header>
+					<h2>More about &lt;declaranime /></h2>
+					<h3>In short...</h3>
+				</header>
+				<p>&lt;declaranime /> was born as a "side effect" to other project and that's why it is built on top of these technologies.
+					Because project size was never a concern, &lt;declaranime /> uses TweenMax and TimelineMax libraries as default animation "providers". 
+					If file size concerns you, you can modify "declaranime.html" file and use TweenLite and TimelineLite with desired plugins.
+				</p>
+			</section>
+
+		</div>
+	</div>
+
+</page-content>
+
+<page-footer></page-footer>
+
+</body>
 </html>

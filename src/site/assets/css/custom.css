@@ -164,3 +164,34 @@ pre.small {
 	background: rgba(255, 255, 255, 0.1);
 	color: rgba(255,255,255, 0.5);
 }
+
+
+
+ul.api-list li:first-child {
+	background: #e2e6e8;
+}
+
+li.api-item:hover {
+	background: #f5f5f5;
+}
+
+span.property,
+span.type,
+span.default-label,
+span.inherited-from {
+	display: inline-block;
+    width: 154px;
+	padding: 0 10px;
+}
+
+span.inherited-from {
+	width: 150px;
+}
+
+span.type {
+    width: 100px;
+}
+
+span.default-label {
+	width: 60px;
+}
