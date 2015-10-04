@@ -1,0 +1,56 @@
+<dom-module id="source-loader">
+	<template>
+		<button  on-click="toggleOpen">source</button>
+		<div class="code"><pre class=".code mid"></pre></div>
+	</template>
+	<script>
+		Polymer({
+			is: "source-loader",
+			properties: {
+				url: {
+					type: String
+				}
+			},
+			loadSource: function () {
+				var self = this;
+				var req = new XMLHttpRequest();
+				req.open('GET', this.url);
+				req.addEventListener("load", function () {
+					self.isLoaded = true;
+					self.querySelector("pre").innerHTML = req.responseText.replace(/</g, "&lt;");
+					self.open(self.querySelector(".code"));
+				});
+				req.send();
+			},
+			toggleOpen: function () {
+				if (this.opened) {
+					this.opened = false;
+					this.close(this.querySelector(".code"));
+				} else {
+					this.opened = true;
+					if (this.isLoaded) {
+						this.open(this.querySelector(".code"));
+					} else {
+						this.loadSource();
+					}
+				}
+			},
+			open: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				var currentHeight = element.offsetHeight;
+				TweenMax.set(element, {display: "block", opacity: 0, height: "auto", position: "absolute", top: -10000});
+				var height = element.offsetHeight;
+				TweenMax.set(element, {height: currentHeight, position: "relative", top: "auto"});
+				TweenMax.to(element, 0.4, {height: height, opacity: 1});
+			},
+			close: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				TweenMax.to(element, 0.4, {display: "none", height: 0, opacity: 0});
+			}
+		});
+	</script>
+</dom-module>

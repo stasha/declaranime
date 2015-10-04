@@ -35,7 +35,9 @@
 				var defEl = document.createElement(el.tagName);
 				var props = el.properties;
 				var behaviors = el.behaviors;
-				
+				if(!behaviors){
+					return;
+				}
 				
 				var apiLists = document.querySelector(".api-lists");
 				var ownProperties = apiLists.querySelector(".properties");
@@ -67,7 +69,7 @@
 					}
 					var ul = document.createElement("ul");
 					ul.classList.add("api-list");
-					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName;
+					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName +'<source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader>';
 					inherited.appendChild(section);
 					inherited.appendChild(ul);
 

@@ -177,7 +177,8 @@ span.your-value input[type="text"],
 ul.api-list,
 .example-switcher select,
 #content .properties h3,
-#content .inherited h3 {
+#content .inherited h3,
+.syntax-example-switcher {
 	font-family: Arial;
 	font-weight: normal;
 	font-size: 12px;
@@ -310,10 +311,20 @@ span.property,
     height: 0;
 }
 
+.syntax-example-switcher {
+    text-align: right;
+}
+
 syntax-switcher {
 	display: inline-block;
 	margin-bottom: 10px;
 }
+
+.example-switcher {
+	margin-top: 25px;
+	margin-bottom: -25px;
+}
+
 .example-switcher span {
 	display: inline-block;
 	margin-right: 9px;
@@ -352,7 +363,7 @@ button[value="js"].js {
 }
 
 .example-area {
-	border: 1px solid #e2e6e8;
+	border: 1px dashed #e2e6e8;
     padding: 20px;
     margin-top: -10px;
 	overflow: hidden;
@@ -364,6 +375,37 @@ h3 {
 
 h3 span {
 	pointer-events: none;
+}
+
+
+
+.code {
+	height: 0;
+	display: none;
+	max-height: 200px;
+    overflow: auto;
+    background: #f8f8f8 !important;
+    border: 1px solid #f5f5f5;
+    cursor: default;
+}
+
+.code pre {
+	padding: 10px;
+	background: none !important;
+	font-family: monospace;
+	color: black;
+}
+
+h3 button {
+	float: right;
+	margin-right: 30px;
+	background: none;
+	margin-top: 3px;
+	border: none;
+}
+
+h3 button:hover {
+	text-decoration: underline;
 }
 
 .api-list {

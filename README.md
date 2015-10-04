@@ -1,4 +1,4 @@
 # declaranime
-Declarative animation framework built on top of polymer and GSAP
+Declarative animation library built on top of GSAP and Polymer
 
-http://declaranime.stasha.info
+For interactive api/examples see http://declaranime.com

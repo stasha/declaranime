@@ -15,6 +15,7 @@
 		<link rel="import" href="../site-elements/syntax-switcher.html" />
 		<link rel="import" href="../site-elements/api-script.html" />
 		<link rel="import" href="../site-elements/expand-collapse.html" />
+		<link rel="import" href="../site-elements/source-loader.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
@@ -32,6 +33,7 @@
 					<div class="pull-left">
 						<h2>fx-animate</h2>
 						<h3>Animate anything</h3>
+						<p>description</p>
 					</div>
 					<div class="pull-right syntax-example-switcher">
 						<syntax-switcher></syntax-switcher>
@@ -44,6 +46,8 @@
 							</select>
 						</div>
 					</div>
+					<div class="clearfix"></div>
+					<source-loader url="../../elements/fx-animate.html"></source-loader>
 				</header>
 				<div class="example-area">
 					<ul class="moving-list">
@@ -55,8 +59,10 @@
 					<button onclick="document.getElementById('fx-element').start()">Start</button>
 				</div>
 				<div id="fx-example"></div>
+				
+				
 				<div class="api-lists">
-					
+
 					<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
 					<div class="clearfix"></div>
 					<ul class="properties"></ul>
