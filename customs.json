@@ -1,22 +1,26 @@
 {
 	"elements": {
-		"fx-timeline": {},
+		"api-script": {},
 		"page-footer": {},
 		"fx-rotate-3d": {},
 		"fx-move": {},
-		"fx-rotate": {},
 		"page-content": {},
+		"examples-navigation": {},
 		"page-header": {},
 		"fx-drag": {},
+		"fx-timeline": {},
+		"fx-rotate": {},
 		"page-head": {},
 		"dom-module": {
 			"attributes": {
 				"id": {}
 			}
 		},
+		"syntax-switcher": {},
 		"fx-animate": {}
 	},
 	"attributes": {
-		"title": {}
+		"title": {},
+		"class": {}
 	}
 }

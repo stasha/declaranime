@@ -1,0 +1,23 @@
+<dom-module id="syntax-switcher">
+	<template>
+		<div class="flex">
+			<span>Change syntax</span>
+			<button class$="{{type}}" value='html' on-click="setType">html</button>
+			<button class$="{{type}}" value='js' on-click="setType">JavaScript</button>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: "syntax-switcher",
+			properties: {
+				type: {
+					type: String,
+					value: "html"
+				}
+			},
+			setType: function(e){
+				this.type = e.target.value;
+			}
+		});
+	</script>
+</dom-module>

@@ -7,9 +7,14 @@
 <html>
 	<head>
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<link rel="import" href="../../elements/declaranime.html" />
+		<script src="../assets/js/components-ready.js"></script>
 		<link rel="import" href="../site-elements/page-head.html" />
 		<link rel="import" href="../site-elements/examples-navigation.html" />
+		<link rel="import" href="../site-elements/syntax-switcher.html" />
+		<link rel="import" href="../site-elements/api-script.html" />
+		<link rel="import" href="../site-elements/expand-collapse.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
@@ -23,25 +28,46 @@
 		<div class="9u 12u(mobile) important(mobile)">
 
 			<section>
-				<header>
-					<h2>fx-fade</h2>
-					<h3>Change elements opacity</h3>
+				<header class="relative clearfix">
+					<div class="pull-left">
+						<h2>fx-fade</h2>
+						<h3>Change elements opacity</h3>
+					</div>
+					<div class="pull-right syntax-example-switcher">
+						<syntax-switcher></syntax-switcher>
+						<div class="example-switcher">
+							<span>Change example</span>
+							<select>
+								<option>Example 1</option>
+								<option>Example 2</option>
+								<option>Example 3</option>
+							</select>
+						</div>
+					</div>
 				</header>
-
-				<ul class="moving-list">
-					<li> Bullet 1</li>
-					<li> Bullet 2</li>
-					<li> Bullet 3</li>
-				</ul>
-				<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
-				<button onclick="document.getElementById('moving-list').start()">Start</button>
-
+				<div class="example-area">
+					<ul class="moving-list">
+						<li> Bullet 1</li>
+						<li> Bullet 2</li>
+						<li> Bullet 3</li>
+					</ul>
+					<fx-fade id="fx-element" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-fade>
+					<button onclick="document.getElementById('fx-element').start()">Start</button>
+				</div>
+				<div id="fx-example"></div>
+				<div class="api-lists">
+					
+					<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
+					<div class="clearfix"></div>
+					<ul class="properties"></ul>
+					<div class="inherited"></div>
+				</div>
 			</section>
-
 		</div>
 	</div>
 </page-content>
 
 <page-footer></page-footer>
+<api-script syntax-switcher="syntax-switcher"></api-script>
 </body>
 </html>

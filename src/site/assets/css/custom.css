@@ -24,7 +24,8 @@ body {
 	content: '>';
 }
 
-pre {
+pre,
+.pre {
 	font-family: Consolas,monospace;
 	padding: 10px;
 	margin-bottom: 5px;
@@ -33,17 +34,19 @@ pre {
     font-size: 16px;
     word-wrap: break-word;
     text-align: left;
-	line-height: 1em;
+	line-height: normal;
 }
 
-pre.mid {
+pre.mid,
+.pre.mid {
 	font-size: 13px;
-	line-height: 0.8em;
+	line-height: normal;
 }
 
-pre.small {
+pre.small,
+.pre.small {
 	font-size: 12px;
-	line-height: 0.65em;
+	line-height: normal;
 	background: none;
 }
 
@@ -169,14 +172,56 @@ pre.small {
 	color: rgba(255,255,255, 0.5);
 }
 
+span.your-value select,
+span.your-value input[type="text"],
+ul.api-list,
+.example-switcher select,
+#content .properties h3,
+#content .inherited h3 {
+	font-family: Arial;
+	font-weight: normal;
+	font-size: 12px;
+}
 
 
 ul.api-list li:first-child {
-	background: #e2e6e8;
+	border-bottom: 1px dashed #e2e6e8;
+	/*font-weight: bold;*/
+	margin-bottom: 15px;
+	color: inherit;
 }
 
-li.api-item:hover {
+ul.api-list li:last-child {
+	margin-bottom: 25px;
+}
+
+ul.api-list li:first-child .property{
+	color: black;
+}
+
+li.api-item {
+	line-height: 25px;
+}
+
+li.api-item:hover{
 	background: #f5f5f5;
+}
+.properties h3,
+.inherited h3 {
+	/*border-bottom: 1px solid white;*/
+}
+.properties h3:hover,
+.inherited h3:hover {
+	background: #f5f5f5;
+}
+.properties h3.open,
+.inherited h3.open {
+	background: #f5f5f5;
+}
+
+.properties h3:hover,
+.inherited h3:hover {
+	cursor: pointer;
 }
 
 span.property,
@@ -202,17 +247,28 @@ span.default-label {
 }
 
 span.default-value {
-	width: 140px;
+	width: 130px;
+	text-align: center;
+	margin-right: 10px;
 }
-span.your-value input[type="text"] {
+input[type="text"],
+select {
 	padding: 2px 3px;
 	width: 120px;
-	font-size: 14px;
-	line-height: normal;
-	font-family: monospace;
+	font-size: 12px;
 	text-align: center;
-	position: relative;
-	top: -2px;
+	line-height: 16px;
+	margin: 0;
+	border: 1px solid #dedede;
+}
+
+span.your-value select {
+	width: auto;
+	padding: 3px 3px; 
+}
+
+span.your-value input.Number {
+	width: 50px;
 }
 
 #fx-example {
@@ -227,9 +283,156 @@ span.your-value input[type="text"] {
 .tag-name {
 	color: #0000e6;
 }
+span.property,
 .tag-attribute {
 	color: #ce7b00;
 }
 .attribute-value {
 	color: black;
+}
+
+.relative {
+	position: relative;
+}
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+.clearfix:before,
+.clearfix:after {
+	content: '';
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+syntax-switcher {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.example-switcher span {
+	display: inline-block;
+	margin-right: 9px;
+}
+syntax-switcher span {
+	margin-right: 20px;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+button {
+	border: 1px solid #ccc;
+	margin: 0 1px;
+	line-height: normal;
+	padding: 5px 10px;
+	cursor: pointer;
+	background: #e2e6e8;
+}
+
+button:hover {
+
+}
+
+button[value="js"].html, 
+button[value="html"].js {
+	background: none;
+	border-color: transparent;
+	text-decoration: underline;
+}
+
+button[value="html"].html, 
+button[value="js"].js {
+	/*background: #ce7b00;*/
+}
+
+.example-area {
+	border: 1px solid #e2e6e8;
+    padding: 20px;
+    margin-top: -10px;
+	overflow: hidden;
+}
+
+h3 {
+	position: relative;
+}
+
+h3 span {
+	pointer-events: none;
+}
+
+.api-list {
+	margin-bottom: 0;
+}
+
+.api-lists input[type="checkbox"] {
+	position: relative;
+	top: 2px;
+}
+
+.api-lists h3,
+.api-lists h3:first-child,
+.api-lists h3:last-child {
+	border-top: 1px solid #f5f5f5;
+}
+
+.api-lists h3:after {
+	content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid black;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.api-lists h3.open:after {
+	content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid black;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+h3 + ul {
+	display: none;
+	/*height: 0;*/
+	overflow: hidden;
+}
+
+h3.open + ul {
+	/*display: block;*/
+}
+
+expand-collapse {
+	margin-bottom: -32px;
+    margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+expand-collapse .divider {
+	display: inline-block;
+    font-size: 5px;
+    line-height: normal;
+}
+
+expand-collapse button {
+	border: none;
+	background: none;
+}
+expand-collapse button:hover {
+	text-decoration: underline;
 }

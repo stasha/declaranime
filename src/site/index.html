@@ -6,9 +6,11 @@
 -->
 <html>
 	<head>
+		<link rel="stylesheet" href="assets/css/custom.css" />
 		<script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../elements/declaranime.html" />
 		<link rel="import" href="site-elements/page-head.html" />
+		<script src="assets/js/components-ready.js"></script>
 
 	<page-head title="&lt;declaranime />"></page-head>
 
@@ -24,30 +26,30 @@
 					<p>Create super cool web animations in no time!<br />Super easy to use and super easy to learn!</p>
 					<!--<a href="#" class="button-big">Animation examples!</a>-->
 					<ul class="tag-list">
-						<li><a href="#examples/fx-animate">fx-animate</a></li>
-						<li><a href="#examples/fx-class">fx-class</a></li>
-						<li><a href="#examples/fx-css">fx-css</a></li>
-						<li><a href="#examples/fx-drag">fx-drag</a></li>
-						<li><a href="#examples/fx-fade">fx-fade</a></li>
-						<li><a href="#examples/fx-move">fx-move</a></li>
-						<li><a href="#examples/fx-resize">fx-resize</a></li>
-						<li><a href="#examples/fx-rotate">fx-rotate</a></li>
-						<li><a href="#examples/fx-rotate-3d">fx-rotate-3d</a></li>
-						<li><a href="#examples/fx-scale">fx-scale</a></li>
-						<li><a href="#examples/fx-skew">fx-skew</a></li>
-						<li><a href="#examples/fx-slide">fx-slide</a></li>
-						<li><a href="#examples/fx-timeline">fx-timeline</a></li>
+						<li><a href="examples/fx-animate.html">fx-animate</a></li>
+						<li><a href="examples/fx-class.html">fx-class</a></li>
+						<li><a href="examples/fx-drag.html">fx-drag</a></li>
+						<li><a href="examples/fx-fade.html">fx-fade</a></li>
+						<li><a href="examples/fx-move.html">fx-move</a></li>
+						<li><a href="examples/fx-resize.html">fx-resize</a></li>
+						<li><a href="examples/fx-rotate.html">fx-rotate</a></li>
+						<li><a href="examples/fx-rotate-3d.html">fx-rotate-3d</a></li>
+						<li><a href="examples/fx-scale.html">fx-scale</a></li>
+						<li><a href="examples/fx-skew.html">fx-skew</a></li>
+						<li><a href="examples/fx-slide.html">fx-slide</a></li>
+						<li><a href="examples/fx-style.html">fx-style</a></li>
+						<li><a href="examples/fx-timeline.html">fx-timeline</a></li>
 					</ul>
 
 				</div>
 				<div class="6u 12u(mobile)">
 
 					<p>Install:</p>
-					<pre>&gt; bower install -save stasha/declaranime</pre>
+					<div class="pre">&gt; bower install -save stasha/declaranime</div>
 					<span>And than include in your html:</span>	
-					<pre class="mid">&lt;script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js">&lt;/script>
-&lt;link rel="import" 
-	href="/bower_components/declaranime/src/elements/declaranime.html" /></pre>
+					<div class="pre mid">&lt;script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js">&lt;/script><br />
+						&lt;link rel="import"<br />
+						&nbsp;&nbsp;&nbsp;&nbsp;href="/bower_components/declaranime/src/elements/declaranime.html" /></div>
 				</div>
 			</div>
 		</div>
@@ -75,15 +77,15 @@
 							<button onclick="document.getElementById('moving-list').start()">Start</button>
 						</div>
 
-						<pre class="small">&lt;fx-move 
-	id="moving-list" 
-	element=".moving-list li" 
-	stagger="0.2" 
-	from-x="0" 
-	to-x="150" 
-	speed="2" 
-	ease="Elastic.easeOut">
-&lt;/fx-move></pre>
+						<div class="pre small">&lt;fx-move 
+							id="moving-list" 
+							element=".moving-list li" 
+							stagger="0.2" 
+							from-x="0" 
+							to-x="150" 
+							speed="2" 
+							ease="Elastic.easeOut">
+							&lt;/fx-move></div>
 					</section>
 
 				</div>
@@ -103,15 +105,15 @@
 							<button onclick="document.getElementById('rotating-box').start()">Start</button>
 						</div>
 
-						<pre class="small">&lt;fx-rotate-3d 
-	id="rotating-box" 
-	element=".rotating-box" 
-	stagger="0.3" 
-	to-rotation-x="+=180" 
-	to-rotation-z="+=180" 
-	speed="3"
-	ease="Elastic.easeOut">
-&lt;/fx-rotate-3d></pre>
+						<div class="pre small">&lt;fx-rotate-3d 
+							id="rotating-box" 
+							element=".rotating-box" 
+							stagger="0.3" 
+							to-rotation-x="+=180" 
+							to-rotation-z="+=180" 
+							speed="3"
+							ease="Elastic.easeOut">
+							&lt;/fx-rotate-3d></div>
 					</section>
 
 				</div>
@@ -132,15 +134,15 @@
 							<button onclick="document.getElementById('timeline').start()">Start</button>
 						</div>
 
-						<pre class="small">&lt;fx-timeline element=".timeline-box" 
- id="timeline" yoyo repeat="2">
-   &lt;fx-move to-x="150">&lt;/fx-move>
-   &lt;fx-move to-y="80">&lt;/fx-move>
-   &lt;fx-rotate to-rotation="+=180">
-   &lt;/fx-rotate>
-   &lt;fx-move to-x="0" to-y="0">
-   &lt;/fx-move>
-&lt;/fx-timeline></pre>
+						<div class="pre small">&lt;fx-timeline element=".timeline-box" 
+							id="timeline" yoyo repeat="2">
+							&lt;fx-move to-x="150">&lt;/fx-move>
+							&lt;fx-move to-y="80">&lt;/fx-move>
+							&lt;fx-rotate to-rotation="+=180">
+							&lt;/fx-rotate>
+							&lt;fx-move to-x="0" to-y="0">
+							&lt;/fx-move>
+							&lt;/fx-timeline></div>
 
 					</section>
 
@@ -160,15 +162,15 @@
 							<fx-drag element=".drag-box2" type="rotation"></fx-drag>
 						</div>
 
-						<pre class="small">&lt;fx-drag element=".drag-box0" 
-	bounds="#bound-box">
-&lt;/fx-drag>
-&lt;fx-drag element=".drag-box1" 
-	bounds="#bound-box" lock-axis>
-&lt;/fx-drag>
-&lt;fx-drag element=".drag-box2" 
-	bounds="#bound-box" 
-	type="rotation">&lt;/fx-drag></pre>
+						<div class="pre small">&lt;fx-drag element=".drag-box0" 
+							bounds="#bound-box">
+							&lt;/fx-drag>
+							&lt;fx-drag element=".drag-box1" 
+							bounds="#bound-box" lock-axis>
+							&lt;/fx-drag>
+							&lt;fx-drag element=".drag-box2" 
+							bounds="#bound-box" 
+							type="rotation">&lt;/fx-drag></div>
 					</section>
 
 				</div>

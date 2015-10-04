@@ -1,0 +1,79 @@
+<dom-module id="expand-collapse">
+	<template>
+		<button on-click="expandAll">expand all</button><span class="divider">|</span><button on-click="collapseAll">collapse all</button>
+	</template>
+	<script>
+		Polymer({
+			is: "expand-collapse",
+			properties: {
+				element: {
+					type: String
+				}
+			},
+			attached: function () {
+				this.debounce('postpon', function () {
+
+					var self = this;
+					var apiLists = document.querySelector(".api-lists");
+					this.apiListsClick = this.apiListsClick || function (e) {
+						if (e.target.tagName === "H3") {
+							var h3 = e.target;
+							if (h3.className.indexOf("open") > -1) {
+								h3.classList.remove("open");
+								self.close(h3.nextSibling);
+							} else {
+								h3.classList.add("open");
+								self.open(h3.nextSibling);
+							}
+						}
+					};
+					apiLists.removeEventListener("click", this.apiListsClick);
+					apiLists.addEventListener("click", this.apiListsClick);
+
+					var h3 = apiLists.querySelectorAll("h3.open + ul");
+					for (var i = 0; i < h3.length; ++i) {
+						self.open(h3);
+					}
+				}, 100);
+			},
+			open: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				var currentHeight = element.offsetHeight;
+				TweenMax.set(element, {display: "block", opacity: 0, height: "auto", position: "absolute", top: -10000});
+				var height = element.offsetHeight;
+				TweenMax.set(element, {height: currentHeight, position: "relative", top: "auto"});
+				TweenMax.to(element, 0.4, {height: height, opacity: 1});
+			},
+			close: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				TweenMax.to(element, 0.4, {display: "none", height: 0, opacity: 0});
+			},
+			expandAll: function () {
+				this.updateClass("add");
+			},
+			collapseAll: function () {
+				this.updateClass("remove");
+			},
+			updateClass: function (method) {
+				var el = document.querySelectorAll(this.element);
+				var uls = document.querySelectorAll(this.element + " + ul");
+				for (var i = 0; i < el.length; ++i) {
+					if(el[i].className.indexOf("open") > -1 && method === "add"){
+						return;
+					}
+					el[i].classList[method]("open");
+					var ul = uls[i];
+					if (method === "add") {
+						this.open(ul);
+					} else {
+						this.close(ul);
+					}
+				}
+			}
+		});
+	</script>
+</dom-module>
