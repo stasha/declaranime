@@ -16,6 +16,7 @@
 		<link rel="import" href="../site-elements/api-script.html" />
 		<link rel="import" href="../site-elements/expand-collapse.html" />
 		<link rel="import" href="../site-elements/source-loader.html" />
+		<link rel="import" href="../site-elements/example-switcher.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
@@ -35,38 +36,52 @@
 						<h3>Animate anything</h3>
 						<p>description</p>
 					</div>
-					<div class="pull-right syntax-example-switcher">
-						<syntax-switcher></syntax-switcher>
-						<div class="example-switcher">
-							<span>Change example</span>
-							<select>
-								<option>Example 1</option>
-								<option>Example 2</option>
-								<option>Example 3</option>
-							</select>
+						<syntax-switcher class="pull-right"></syntax-switcher>
+					<div class="clearfix"></div>
+					<source-loader label="fx-animate source" url="../../elements/fx-animate.html"></source-loader>
+				</header>
+				<div class="example-section">
+					<example-switcher examples-selector=".example-section"></example-switcher>
+					<div class="examples">
+						<div name="Simple example 1" class="example selected">
+							<p>description 1</p>
+							<ul class="moving-list">
+								<li> Bullet 1</li>
+							</ul>
+							<fx-animate class="fx" reverse-on-back element=".example.selected .moving-list li" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
+						</div>
+						<div name="Simple example 2" class="example">
+							<p>description 2</p>
+							<ul class="moving-list">
+								<li> Bullet 1</li>
+								<li> Bullet 2</li>
+							</ul>
+							<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
+						</div>
+						<div name="Simple example 3" class="example">
+							<p>description 3</p>
+							<ul class="moving-list">
+								<li> Bullet 1</li>
+								<li> Bullet 2</li>
+								<li> Bullet 3</li>
+							</ul>
+							<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
 						</div>
 					</div>
-					<div class="clearfix"></div>
-					<source-loader url="../../elements/fx-animate.html"></source-loader>
-				</header>
-				<div class="example-area">
-					<ul class="moving-list">
-						<li> Bullet 1</li>
-						<li> Bullet 2</li>
-						<li> Bullet 3</li>
-					</ul>
-					<fx-animate id="fx-element" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
-					<button onclick="document.getElementById('fx-element').start()">Start</button>
-				</div>
-				<div id="fx-example"></div>
-				
-				
-				<div class="api-lists">
 
-					<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
-					<div class="clearfix"></div>
-					<ul class="properties"></ul>
-					<div class="inherited"></div>
+					<button onclick="document.querySelector('.example.selected .fx').start()">Start</button>
+					<button onclick="document.querySelector('.example.selected .fx').pause()">Pause</button>
+					<button onclick="document.querySelector('.example.selected .fx').stop()">Stop</button>
+					<button onclick="document.querySelector('.example.selected .fx').reverse()">Reverse</button>
+					<p>Example code</p>
+					<div id="fx-example"></div>
+					<div class="api-lists">
+
+						<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
+						<div class="clearfix"></div>
+						<ul class="properties"></ul>
+						<div class="inherited"></div>
+					</div>
 				</div>
 			</section>
 		</div>
@@ -74,6 +89,6 @@
 </page-content>
 
 <page-footer></page-footer>
-<api-script syntax-switcher="syntax-switcher"></api-script>
+<api-script id="api-script" syntax-switcher="syntax-switcher"></api-script>
 </body>
 </html>

@@ -1,16 +1,54 @@
 <dom-module id="api-script">
 	<script>
+
+
+
 		Polymer({
+			easing: [
+				"Power0.easeNone",
+				"Power1.easeIn",
+				"Power1.easeInOut",
+				"Power1.easeOut",
+				"Power2.easeIn",
+				"Power2.easeInOut",
+				"Power2.easeOut",
+				"Power3.easeIn",
+				"Power3.easeInOut",
+				"Power3.easeOut",
+				"Power4.easeIn",
+				"Power4.easeInOut",
+				"Power4.easeOut",
+				"Back.easeIn",
+				"Back.easeInOut",
+				"Back.easeOut",
+				"Elastic.easeIn",
+				"Elastic.easeInOut",
+				"Elastic.easeOut",
+				"Bounce.easeIn",
+				"Bounce.easeInOut",
+				"Bounce.easeOut",
+				"Rough.ease.config",
+				"SlowMo.ease.config",
+				"SteppedEase.config",
+				"Circ.easeIn",
+				"Circ.easeInOut",
+				"Circ.easeOut",
+				"Expo.easeIn",
+				"Expo.easeInOut",
+				"Expo.easeOut",
+				"Syne.easeIn",
+				"Syne.easeInOut",
+				"Syne.easeOut"
+			],
 			is: "api-script",
 			properties: {
 				selector: {
 					tupe: String,
-					value: "#fx-element"
+					value: ".example.selected .fx"
 				},
 				type: {
 					type: String,
-					value: "html",
-					observer: "attached"
+					value: "html"
 				},
 				syntaxSwitcher: {
 					type: String,
@@ -23,10 +61,12 @@
 					var self = this;
 					this._syntaxSwitcher.addEventListener("click", function (e) {
 						var props = document.querySelectorAll("span.property");
-						for(var i = 0; i < props.length; ++i){
+						for (var i = 0; i < props.length; ++i) {
 							var p = props[i].innerHTML;
 							props[i].innerHTML = self.changePropertyFormat(p, e.target.value);
 						}
+						self.type = e.target.value;
+						self.createExample();
 					});
 				}
 			},
@@ -35,26 +75,20 @@
 				var defEl = document.createElement(el.tagName);
 				var props = el.properties;
 				var behaviors = el.behaviors;
-				if(!behaviors){
+				if (!behaviors) {
 					return;
 				}
-				
+
 				var apiLists = document.querySelector(".api-lists");
-				var ownProperties = apiLists.querySelector(".properties");
 				var inherited = apiLists.querySelector(".inherited");
-				
-			
-				
 				inherited.parentElement.classList.add(this.type);
 				inherited.parentElement.classList.remove(this.type === "html" ? "js" : "html");
-				
-				ownProperties.innerHTML = "";
-				inherited.innerHTML = "";
+//				ownProperties.innerHTML = "";
+//				inherited.innerHTML = "";
 
 				for (var i = 0; i < behaviors.length; ++i) {
 					var behavior = behaviors[i];
 					var props = behavior.properties;
-
 					var behaviorName = "";
 					for (var b in window.declaranime) {
 						if (window.declaranime[b] === behavior) {
@@ -64,16 +98,14 @@
 					}
 
 					var section = document.createElement("h3");
-					if(i === 1){
+					if (i === 0) {
 						section.classList.add("open");
 					}
 					var ul = document.createElement("ul");
 					ul.classList.add("api-list");
-					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName +'<source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader>';
+					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName + '<source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader>';
 					inherited.appendChild(section);
 					inherited.appendChild(ul);
-
-
 					var list = "";
 					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-value">default value</span> <span class="your-value">example value</span></li>';
 					for (var n in props) {
@@ -84,7 +116,6 @@
 						var html = '<span class="property">' + attr + '</span>';
 						html += ' : <span class="type">' + (type || "") + '</span>';
 						html += '</span><span class="default-value"> ' + (defValue || "") + '</span>';
-
 						switch (type) {
 							case "Boolean":
 								html += '<span class="your-value"><input class="' + type + '" type="checkbox" name="' + n + '" ' + (exValue ? 'checked' : '') + '/></span>';
@@ -92,47 +123,12 @@
 							case "String":
 							case "Number":
 							case "Object":
-								var easing = [
-									"Power0.easeNone",
-									"Power1.easeIn",
-									"Power1.easeInOut",
-									"Power1.easeOut",
-									"Power2.easeIn",
-									"Power2.easeInOut",
-									"Power2.easeOut",
-									"Power3.easeIn",
-									"Power3.easeInOut",
-									"Power3.easeOut",
-									"Power4.easeIn",
-									"Power4.easeInOut",
-									"Power4.easeOut",
-									"Back.easeIn",
-									"Back.easeInOut",
-									"Back.easeOut",
-									"Elastic.easeIn",
-									"Elastic.easeInOut",
-									"Elastic.easeOut",
-									"Bounce.easeIn",
-									"Bounce.easeInOut",
-									"Bounce.easeOut",
-									"Rough.ease.config",
-									"SlowMo.ease.config",
-									"SteppedEase.config",
-									"Circ.easeIn",
-									"Circ.easeInOut",
-									"Circ.easeOut",
-									"Expo.easeIn",
-									"Expo.easeInOut",
-									"Expo.easeOut",
-									"Syne.easeIn",
-									"Syne.easeInOut",
-									"Syne.easeOut",
-								]
+
 								if (n === "ease") {
 									html += '<span class="your-value">';
 									html += '<select name="' + n + '">';
-									for (var o = 0; o < easing.length; ++o) {
-										html += '<option ' + (exValue === easing[o] ? "selected" : "") + ' >' + easing[o] + '</option>'
+									for (var o = 0; o < this.easing.length; ++o) {
+										html += '<option value="' + this.easing[o] + '" ' + (exValue === this.easing[o] ? "selected" : "") + ' >' + this.easing[o] + '</option>'
 									}
 									html += '</select>';
 									html += '</span>';
@@ -140,7 +136,6 @@
 									html += '<span class="your-value"><input class="' + type + '" type="text" name="' + n + '"  value="' + (exValue || '') + '"	/></span>';
 								}
 								break;
-
 						}
 
 						list += '<li class="api-item">' + html + '</li>';
@@ -148,18 +143,50 @@
 					ul.innerHTML = list;
 					var self = this;
 					function updateValues(e) {
+						var el = document.querySelector(self.selector);
 						var val = e.target.value;
 						if (e.target.type === 'checkbox') {
 							val = e.target.checked;
 						}
 						el[e.target.name] = val;
+						el.updateOptions();
 						self.createExample.call(self);
 					}
-					;
+
 					ul.addEventListener("change", updateValues);
 					ul.addEventListener("keyup", updateValues);
 				}
+				this.updateInputValues();
 				this.createExample();
+			},
+			updateInputValues: function () {
+				var el = document.querySelector(this.selector);
+				el.updateOptions();
+
+				console.log(el.fromOptions);
+				console.log("---");
+				console.log(el.toOptions);
+
+
+				var behaviors = el.behaviors;
+				for (var i = 0; i < behaviors.length; ++i) {
+					var behavior = behaviors[i];
+					var props = behavior.properties;
+
+					for (var p in props) {
+						var input = document.querySelector('[name="' + p + '"]');
+						var type = (props[p].type && (props[p].type + "").split(" ")[1].replace("()", ""));
+						if (input.type === "checkbox") {
+							input.checked = el[p];
+						} else if (type === "Object") {
+							if (p === "ease") {
+								input.value = el[p];
+							}
+						} else {
+							input.value = el[p] || '';
+						}
+					}
+				}
 			},
 			createExample: function () {
 				var el = document.querySelector(this.selector);
@@ -168,7 +195,25 @@
 				ex.innerHTML = "";
 
 				var behaviors = el.behaviors;
-				var html = '<span class="tag-name">&lt;' + tagName + "</span>";
+				var html = '';
+
+				if (this.type === 'js') {
+					if (parseFloat(el.stagger)) {
+						tagName = 'TweenMax.staggerTo';
+						if (Object.keys(el.fromOptions).length > 0) {
+							tagName = 'TweenMax.staggerFromTo';
+						}
+						html += '<span class="tag-name">' + tagName + '</span>(';
+					} else {
+						tagName = 'TweenMax.to';
+						if (Object.keys(el.fromOptions).length > 0) {
+							tagName = 'TweenMax.fromTo';
+						}
+						html += '<span class="tag-name">' + tagName + "</span>(";
+					}
+				} else {
+					html += '<span class="tag-name">' + tagName + "</span> ";
+				}
 
 				for (var i = 0; i < behaviors.length; ++i) {
 					var behavior = behaviors[i];
@@ -182,26 +227,72 @@
 						}
 					}
 
-					for (var p in props) {
-						if ((behaviorName === "AnimationBehavior" && el[p]) || (behaviorName !== "AnimationBehavior" && el[p] != null)) {
-							var attr = this.changePropertyFormat(p, "html");
-							if (p === "fromStyle" || p === "toStyle") {
-								html += ' <span class="tag-attribute">' + attr + '=\'<span class="attribute-value">' + el[p] + '</span>\'</span>';
-							} else {
-								html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + el[p] + '</span>"</span>';
+					if (this.type === "js") {
+						html += '<span class="attribute-value">"' + el.element + '"</span>,';
+						html += ' <span class="attribute-value">' + el.speed + '</span>';
+						var c = 0;
+						if (Object.keys(el.fromOptions).length > 0) {
+							html += ", {";
+							for (var i in el.fromOptions) {
+								if (c > 0) {
+									html += ", ";
+								}
+								c++;
+								var val = el.fromOptions[i];
+								val = typeof val === "string" ? "\"" + val + "\"" : val;
+								html += '<span class="tag-attribute">' + i + ': <span class="attribute-value">' + val + '</span></span>';
+							}
+							html += "}";
+						}
+
+						html += ", {";
+						c = 0;
+						for (var i in el.toOptions) {
+							if (c > 0) {
+								html += ", ";
+							}
+							c++;
+							var val = el.toOptions[i];
+							val = typeof val === "string" ? "\"" + val + "\"" : val;
+							html += '<span class="tag-attribute">' + i + ': <span class="attribute-value">' + val + '</span></span>';
+						}
+						html += "}";
+
+					} else {
+
+						for (var p in props) {
+							if ((behaviorName === "AnimationBehavior" && el[p]) || (behaviorName !== "AnimationBehavior" && el[p] != null)) {
+								var attr = this.changePropertyFormat(p, this.type);
+								if (p === "fromStyle" || p === "toStyle") {
+									html += '<span class="tag-attribute">' + attr + '=\'<span class="attribute-value">' + el[p] + '</span>\'</span>';
+								} else {
+									html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + el[p] + '</span>"</span>';
+								}
 							}
 						}
-					}
 
+					}
 				}
 
-
-				html += '<span class="tag-name">>&lt;/' + tagName + '></span>';
+				if (this.type === "js") {
+					if (parseFloat(el.stagger)) {
+						html += ", " + parseFloat(el.stagger);
+						if (el.oncompleteall) {
+							html += ", \"" + el.oncompleteall + "\"";
+						}
+					}
+					
+					html += ');';
+				} else {
+					html += '<span class="tag-name">>&lt;/' + tagName + '></span>';
+				}
 				ex.innerHTML = html;
 			},
-			changePropertyFormat: function (str, type) {
+			changePropertyFormat: function (str, type, trimFromTo) {
 				if (type === "js") {
-					var attr = str.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+					var attr = str.replace(/-([a-z])/g, function (g) {
+						return g[1].toUpperCase();
+					});
 					return attr;
 				} else {
 					var attr = str.replace(/\W+/g, '-').replace(/([a-z\d])([A-Z]+)/g, '$1-$2');

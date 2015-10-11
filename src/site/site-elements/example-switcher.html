@@ -1,0 +1,69 @@
+<dom-module id="example-switcher">
+	<template>
+		<span>Change example</span>
+		<select on-change="exampleHasChanged">
+			<template is="dom-repeat" items="{{examples}}">
+			<option value="{{getItem(item)}}">{{getItem(item)}}</option>
+			</template>
+		</select>
+	</template>
+	<script>
+		Polymer({
+			is: "example-switcher",
+			properties: {
+				examplesSelector: {
+					type: String
+				},
+				examples: {
+					type: Array,
+					value: []
+				},
+				apiScript: {
+					type: Object,
+					value: document.querySelector("#api-script")
+				}
+			},
+			attached: function(){
+				this.async(function(){
+					this.examples =  Array.prototype.slice.call(document.querySelectorAll(this.examplesSelector + " .example"));
+				});
+			},
+			getItem: function(item){
+				return item.getAttribute("name");
+			},
+			exampleHasChanged: function(e){
+				console.log(e.target.value);
+				for(var i = 0; i < this.examples.length; ++i){
+					var example = this.examples[i];
+					if(example.className.indexOf("selected") > -1){
+						this.close(example);
+					}
+					example.classList.remove("selected");
+					if(e.target.value === example.getAttribute("name")){
+						example.classList.add("selected");
+						this.apiScript.createExample();
+						this.apiScript.updateInputValues();
+						this.open(example);
+					}
+				}
+			},
+			open: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				TweenMax.set(element, {display: "block", position: "absolute"});
+				var currentHeight = element.offsetHeight;
+				TweenMax.set(element, {height: "auto"});
+				var height = element.offsetHeight;
+				TweenMax.set(element, {height: currentHeight + 10, position: "relative"});
+				TweenMax.to(element, 0.4, {height: height, opacity: 1});
+			},
+			close: function (element) {
+				if (typeof element === "string") {
+					element = document.querySelector(element);
+				}
+				TweenMax.to(element, 0.4, {display: "none", height: 0});
+			}
+		});
+	</script>
+</dom-module>

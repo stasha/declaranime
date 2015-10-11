@@ -1,6 +1,6 @@
 <dom-module id="source-loader">
 	<template>
-		<button  on-click="toggleOpen">source</button>
+		<button  on-click="toggleOpen">{{label}}</button>
 		<div class="code"><pre class=".code mid"></pre></div>
 	</template>
 	<script>
@@ -9,6 +9,10 @@
 			properties: {
 				url: {
 					type: String
+				},
+				label: {
+					type: String,
+					value: "source"
 				}
 			},
 			loadSource: function () {

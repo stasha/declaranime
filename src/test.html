@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -17,40 +11,37 @@ and open the template in the editor.
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div>TODO write content</div>
+		<div class="root">
+			<div class="level-1">
+				<div class="level-2">
+					<div class="level-3">
+
+					<div id="first-level"></div>
+					</div>
+				</div>
+				<div id="second-level"></div>
+			</div>
+			<p>
+
+			</p>
+		</div>
+		<script>
+
+		</script>
+
 
 		<script>
-			var test = {
-				testFunction: function (e, b, c) {
-//					console.log(arguments);
-					console.log(e + " : " + b + " : " + c);
-				}
-			};
 			
+			var nodes = document.querySelectorAll(".level-3, .level-2, #first-level, #second-level");
+			var startNode = nodes[0];
 			
-
-			function stringToFunction(str) {
-				var newStr = str;
-				var reg = new RegExp(/\( *([^)]+?) *\)/).exec(str);
-				
-				if (reg[1]) {
-					var args = reg[1].replace(/\s*,\s*/g, ",").split(",");
-
-					for (var i = 0; i < args.length; ++i) {
-						args[i] = "this." + args[i];
-					}
-
-					newStr = str.replace(reg[0], "(" + args.join(",") + ")");
+			for (var i = 0; i < nodes.length; ++i) {
+				while (!startNode || !startNode.contains(nodes[i])){
+					startNode = startNode.parentElement;
 				}
-				
-				var obj = {
-					execute: new Function(newStr)
-				};
-				return obj;
 			}
 
-			var func = stringToFunction("test.testFunction(e, b, c)");
-			func.execute.call(func);
+			console.log(startNode);
 
 		</script>
 

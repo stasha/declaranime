@@ -10,6 +10,11 @@
 		"fx-drag": {},
 		"fx-timeline": {},
 		"fx-rotate": {},
+		"source-loader": {
+			"attributes": {
+				"url": {}
+			}
+		},
 		"page-head": {},
 		"dom-module": {
 			"attributes": {
@@ -17,10 +22,20 @@
 			}
 		},
 		"syntax-switcher": {},
-		"fx-animate": {}
+		"fx-animate": {
+			"attributes": {
+				"stagger": {},
+				"element": {}
+			}
+		}
 	},
 	"attributes": {
+		"to-x": {},
+		"ease": {},
+		"id": {},
 		"title": {},
-		"class": {}
+		"class": {},
+		"from-x": {},
+		"speed": {}
 	}
 }

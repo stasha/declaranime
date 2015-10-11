@@ -12,8 +12,7 @@
 				value: 0.5
 			},
 			delay: {
-				type: Number,
-				value: 0
+				type: Number
 			},
 			immediateRender: {
 				type: Boolean
@@ -29,20 +28,17 @@
 				obeserver: "setEase"
 			},
 			stagger: {
-				type: Number,
-				value: 0
+				type: Number
 			},
 			overwrite: {
 				type: String
 			},
 			paused: {
 				type: Boolean,
-				value: false,
 				reflectToAttribute: true
 			},
 			useFrames: {
 				type: Boolean,
-				value: false,
 				reflecttoAttribute: true
 			},
 			offset: {
@@ -50,12 +46,10 @@
 			},
 			yoyo: {
 				type: Boolean,
-				value: false,
 				reflectToAttribute: true
 			},
 			repeat: {
 				type: Number,
-				value: 0,
 				reflectToAttribute: true
 			},
 			repeatDelay: {
@@ -68,6 +62,9 @@
 				type: String
 			},
 			oncomplete: {
+				type: String
+			},
+			oncompleteall: {
 				type: String
 			},
 			onrepeat: {
@@ -89,20 +86,14 @@
 			}
 		},
 		get fromOptions() {
-			return this._fromOptions || {};
+			this.updateOptions();
+			return this._fromOptions;
 		},
 		set fromOptions(value) {
 			this._fromOptions = value;
 		},
 		get toOptions() {
-			this._toOptions = this._toOptions || {};
-			this._toOptions = Polymer.Base.extend(this._toOptions, {
-				delay: this.delay,
-				ease: this.ease,
-				overwrite: this.overwrite,
-				paused: this.paused
-			});
-
+			this.updateOptions();
 			return this._toOptions;
 		},
 		set toOptions(value) {
@@ -131,10 +122,17 @@
 			return obj;
 		},
 		updateOptions: function () {
+			this._fromOptions = {};
+			this._toOptions = {};
 			var self = this;
 			var ignoreProps = [
+				"element",
 				"in",
-				"out"
+				"out",
+				"speed",
+				"reverseOnBack",
+				"stagger",
+				"oncompleteall"
 			];
 			var clearPropName = [
 				"style",
@@ -160,13 +158,17 @@
 				for (var i in properties) {
 					if (typeof this[i] !== "undefined") {
 						var prop = translateProperty(i);
-						if (prop) {
+						var val = this[i];
+						if(!isNaN(parseFloat(this[i]))){
+							val = parseFloat(this[i]);
+						}
+						if (prop && ignoreProps.indexOf(prop) === -1) {
 							if (i.indexOf("from") === 0) {
-								this._fromOptions = this._fromOptions || {};
-								this._fromOptions[prop] = this[i];
-							} else if (i.indexOf("to") === 0) {
-								this._toOptions = this._toOptions || {};
-								this._toOptions[prop] = this[i];
+								if (this[i])
+									this._fromOptions[prop] = val;
+							} else {
+								if (this[i])
+									this._toOptions[prop] = val;
 							}
 						}
 					}
@@ -176,14 +178,15 @@
 			setOptions.call(this, this.properties);
 
 			for (var i = 0; i < this.behaviors.length; ++i) {
-				if (this.behaviors[i] === window.AnimationBehavior) {
-					continue;
-				}
+//				if (this.behaviors[i] === window.AnimationBehavior) {
+//					continue;
+//				}
 
 				setOptions.call(this, this.behaviors[i].properties);
 			}
 		},
 		play: function () {
+			var self = this;
 			this.updateOptions();
 
 			if (!this.stagger) {
@@ -193,10 +196,19 @@
 					this.tween = TweenMax.to(this.element, this.speed, this.toOptions);
 				}
 			} else {
+				
+				onCompleteAll = function (e) {
+					var func = self.stringToFunction(self.oncompleteall);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				};
+				
 				if (this._fromOptions) {
-					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this.fromOptions, this.toOptions, this.stagger);
+					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this.fromOptions, this.toOptions, parseFloat(this.stagger), onCompleteAll);
 				} else {
-					this.tween = TweenMax.staggerTo(this.element, this.speed, this.toOptions, this.stagger);
+					this.tween = TweenMax.staggerTo(this.element, this.speed, this.toOptions, parseFloat(this.stagger), onCompleteAll);
 				}
 			}
 			return this.tween;
@@ -214,15 +226,13 @@
 				default:
 					this.element = element || this.element;
 			}
-			
+
 			this.preStart && typeof this.preStart === "function" && this.preStart();
 
 			var self = this;
-			
+
 
 			this.toOptions = Polymer.Base.extend(this.toOptions, {
-				yoyo: this.yoyo || false,
-				repeat: this.repeat || 0,
 				onStart: function (e) {
 					onStart && onStart(e);
 					var func = self.stringToFunction(self.onstart);
@@ -247,14 +257,14 @@
 						func.execute.call(func);
 					}
 				},
-				onRepeat: function(e) {
+				onRepeat: function (e) {
 					var func = self.stringToFunction(self.onrepeat);
 					if (func) {
 						func.event = {tween: self, element: self.element, context: context};
 						func.execute.call(func);
 					}
 				},
-				onReverseComplete: function(){
+				onReverseComplete: function () {
 					var func = self.stringToFunction(self.onreversecomplete);
 					if (func) {
 						func.event = {tween: self, element: self.element, context: context};
@@ -271,7 +281,7 @@
 				for (var i = 0; i < this.children.length; ++i) {
 					var fx = this.children[i];
 					if (fx) {
-						this.tween.add(fx.start(this.element), this.parallel && !fx.offset ? 0 : fx.offset);
+						this.tween.add(fx.start(this.element), this.parallel && !fx.offset ? 0 : parseFloat(fx.offset));
 					}
 				}
 				return this.tween;

@@ -40,10 +40,11 @@
 				if (typeof element === "string") {
 					element = document.querySelector(element);
 				}
+				TweenMax.set(element, {display: "block", opacity: 0, position: "absolute"});
 				var currentHeight = element.offsetHeight;
-				TweenMax.set(element, {display: "block", opacity: 0, height: "auto", position: "absolute", top: -10000});
+				TweenMax.set(element, {height: "auto"});
 				var height = element.offsetHeight;
-				TweenMax.set(element, {height: currentHeight, position: "relative", top: "auto"});
+				TweenMax.set(element, {height: currentHeight + 10, position: "relative"});
 				TweenMax.to(element, 0.4, {height: height, opacity: 1});
 			},
 			close: function (element) {
@@ -63,7 +64,7 @@
 				var uls = document.querySelectorAll(this.element + " + ul");
 				for (var i = 0; i < el.length; ++i) {
 					if(el[i].className.indexOf("open") > -1 && method === "add"){
-						return;
+						continue;
 					}
 					el[i].classList[method]("open");
 					var ul = uls[i];

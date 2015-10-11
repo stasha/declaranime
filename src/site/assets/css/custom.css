@@ -316,16 +316,15 @@ span.property,
 }
 
 syntax-switcher {
-	display: inline-block;
 	margin-bottom: 10px;
 }
 
-.example-switcher {
-	margin-top: 25px;
-	margin-bottom: -25px;
+example-switcher {
+	text-align: right;
+    display: block;
 }
 
-.example-switcher span {
+example-switcher span {
 	display: inline-block;
 	margin-right: 9px;
 }
@@ -362,11 +361,32 @@ button[value="js"].js {
 	/*background: #ce7b00;*/
 }
 
-.example-area {
+.examples {
 	border: 1px dashed #e2e6e8;
-    padding: 20px;
-    margin-top: -10px;
+    padding: 10px;
 	overflow: hidden;
+}
+
+.example {
+	background: white;
+	display: none;
+}
+
+.example.selected {
+	display: block;
+	height: auto;
+}
+
+.example p {
+	padding: 0 0 10px 0;
+    position: relative;
+    border-bottom: 1px dashed #e2e6e8;
+    margin: 0;
+    line-height: 10px;
+    /* margin-top: -10px; */
+    margin-bottom: 10px;
+    font-family: Arial;
+    font-size: 12px;
 }
 
 h3 {
@@ -450,7 +470,7 @@ h3 button:hover {
 
 h3 + ul {
 	display: none;
-	/*height: 0;*/
+	height: 0;
 	overflow: hidden;
 }
 
