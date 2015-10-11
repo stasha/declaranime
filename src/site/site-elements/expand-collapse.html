@@ -45,7 +45,9 @@
 				TweenMax.set(element, {height: "auto"});
 				var height = element.offsetHeight;
 				TweenMax.set(element, {height: currentHeight + 10, position: "relative"});
-				TweenMax.to(element, 0.4, {height: height, opacity: 1});
+				TweenMax.to(element, 0.4, {height: height, opacity: 1, onComplete: function(){
+					TweenMax.set(element, {height: "auto"});
+				}});
 			},
 			close: function (element) {
 				if (typeof element === "string") {
