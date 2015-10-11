@@ -5,7 +5,8 @@
 	window.declaranime.AnimationBehavior = {
 		properties: {
 			element: {
-				type: Object
+				type: Object,
+				observer: "setElement"
 			},
 			speed: {
 				type: Number,
@@ -72,6 +73,11 @@
 			},
 			onreversecomplete: {
 				type: String
+			}
+		},
+		setElement: function (newValue) {
+			if (typeof newValue === "string") {
+				this.selector = newValue;
 			}
 		},
 		setEase: function (newValue) {
@@ -153,22 +159,24 @@
 
 				return property;
 			}
-
+			//TODO fix fx-style properties mapping
 			function setOptions(properties) {
 				for (var i in properties) {
-					if (typeof this[i] !== "undefined") {
-						var prop = translateProperty(i);
-						var val = this[i];
-						if(!isNaN(parseFloat(this[i]))){
-							val = parseFloat(this[i]);
-						}
-						if (prop && ignoreProps.indexOf(prop) === -1) {
-							if (i.indexOf("from") === 0) {
-								if (this[i])
-									this._fromOptions[prop] = val;
-							} else {
-								if (this[i])
-									this._toOptions[prop] = val;
+					if (ignoreProps.indexOf(i) === -1){
+						if (typeof this[i] !== "undefined") {
+							var prop = translateProperty(i);
+							var val = this[i];
+							if (!isNaN(parseFloat(this[i]))) {
+								val = parseFloat(this[i]);
+							}
+							if (prop && ignoreProps.indexOf(prop) === -1) {
+								if (i.indexOf("from") === 0) {
+									if (this[i])
+										this._fromOptions[prop] = val;
+								} else {
+									if (this[i])
+										this._toOptions[prop] = val;
+								}
 							}
 						}
 					}
@@ -196,7 +204,7 @@
 					this.tween = TweenMax.to(this.element, this.speed, this.toOptions);
 				}
 			} else {
-				
+
 				onCompleteAll = function (e) {
 					var func = self.stringToFunction(self.oncompleteall);
 					if (func) {
@@ -204,7 +212,7 @@
 						func.execute.call(func);
 					}
 				};
-				
+
 				if (this._fromOptions) {
 					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this.fromOptions, this.toOptions, parseFloat(this.stagger), onCompleteAll);
 				} else {
@@ -216,10 +224,12 @@
 		start: function (element, context, onStart, onUpdate, onComplete) {
 			switch (typeof element) {
 				case "string":
+					this.selector = element;
 					this.element = [].slice.call(document.querySelectorAll(element));
 					break;
 				case "undefined":
 					if (typeof this.element === "string") {
+						this.selector = this.element;
 						this.element = [].slice.call(document.querySelectorAll(this.element));
 					}
 					break;

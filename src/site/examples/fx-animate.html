@@ -45,10 +45,8 @@
 					<div class="examples">
 						<div name="Simple example 1" class="example selected">
 							<p>description 1</p>
-							<ul class="moving-list">
-								<li> Bullet 1</li>
-							</ul>
-							<fx-animate class="fx" reverse-on-back element=".example.selected .moving-list li" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
+							<div class="example-box"></div>
+							<fx-animate class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
 						</div>
 						<div name="Simple example 2" class="example">
 							<p>description 2</p>

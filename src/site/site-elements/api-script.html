@@ -40,6 +40,10 @@
 				"Syne.easeInOut",
 				"Syne.easeOut"
 			],
+			ignoreProps: [
+				"reverseOnBack",
+				"reverse-on-back"
+			],
 			is: "api-script",
 			properties: {
 				selector: {
@@ -98,17 +102,20 @@
 					}
 
 					var section = document.createElement("h3");
-					if (i === 0) {
-						section.classList.add("open");
-					}
+
+					section.classList.add("open");
+
 					var ul = document.createElement("ul");
 					ul.classList.add("api-list");
-					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName + '<source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader>';
+					section.innerHTML = '<span class="inherited-from">Inherited from: </span>' + behaviorName;
 					inherited.appendChild(section);
 					inherited.appendChild(ul);
 					var list = "";
-					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-value">default value</span> <span class="your-value">example value</span></li>';
+					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-value">default value</span><span class="your-value">example value</span></li>';
 					for (var n in props) {
+						if (this.ignoreProps.indexOf(n) > -1) {
+							continue;
+						}
 						var type = (props[n].type && (props[n].type + "").split(" ")[1].replace("()", ""));
 						var defValue = defEl[n];
 						var exValue = el[n];
@@ -140,6 +147,9 @@
 
 						list += '<li class="api-item">' + html + '</li>';
 					}
+					
+					list += '<li><source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader></li>';
+					
 					ul.innerHTML = list;
 					var self = this;
 					function updateValues(e) {
@@ -175,6 +185,9 @@
 
 					for (var p in props) {
 						var input = document.querySelector('[name="' + p + '"]');
+						if(!input){
+							continue;
+						}
 						var type = (props[p].type && (props[p].type + "").split(" ")[1].replace("()", ""));
 						if (input.type === "checkbox") {
 							input.checked = el[p];
@@ -212,7 +225,7 @@
 						html += '<span class="tag-name">' + tagName + "</span>(";
 					}
 				} else {
-					html += '<span class="tag-name">' + tagName + "</span> ";
+					html += '<span class="tag-name">&lt;' + tagName + "</span> ";
 				}
 
 				for (var i = 0; i < behaviors.length; ++i) {
@@ -228,7 +241,7 @@
 					}
 
 					if (this.type === "js") {
-						html += '<span class="attribute-value">"' + el.element + '"</span>,';
+						html += '<span class="attribute-value">"' + el.selector + '"</span>,';
 						html += ' <span class="attribute-value">' + el.speed + '</span>';
 						var c = 0;
 						if (Object.keys(el.fromOptions).length > 0) {
@@ -261,12 +274,26 @@
 					} else {
 
 						for (var p in props) {
+							if (this.ignoreProps.indexOf(p) > -1) {
+								continue;
+							}
 							if ((behaviorName === "AnimationBehavior" && el[p]) || (behaviorName !== "AnimationBehavior" && el[p] != null)) {
 								var attr = this.changePropertyFormat(p, this.type);
+								var val = el[p];
+								if(!val){
+									continue;
+								}
 								if (p === "fromStyle" || p === "toStyle") {
-									html += '<span class="tag-attribute">' + attr + '=\'<span class="attribute-value">' + el[p] + '</span>\'</span>';
+									html += '<span class="tag-attribute">' + attr + '=\'<span class="attribute-value">' + val + '</span>\'</span>';
 								} else {
-									html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + el[p] + '</span>"</span>';
+									if (typeof el[p] === "boolean") {
+										html += ' <span class="tag-attribute">' + attr + '</span>';
+									} else {
+										if (p === "element") {
+											val = el.selector;
+										}
+										html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + val + '</span>"</span>';
+									}
 								}
 							}
 						}
@@ -281,7 +308,7 @@
 							html += ", \"" + el.oncompleteall + "\"";
 						}
 					}
-					
+
 					html += ');';
 				} else {
 					html += '<span class="tag-name">>&lt;/' + tagName + '></span>';

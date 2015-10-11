@@ -105,6 +105,12 @@ pre.small,
 	cursor: move;
 }
 
+.example-box {
+	width: 100px;
+	height: 100px;
+	background: blue;
+}
+
 .homepage-example button {
 	border: 0;
 	color: white;
@@ -179,7 +185,9 @@ ul.api-list,
 .example-switcher select,
 #content .properties h3,
 #content .inherited h3,
-.syntax-example-switcher {
+.syntax-switcher,
+example-switcher,
+example-switcher select {
 	font-family: Arial;
 	font-weight: normal;
 	font-size: 12px;
@@ -403,7 +411,7 @@ h3 span {
 .code {
 	height: 0;
 	display: none;
-	max-height: 200px;
+	max-height: 220px;
     overflow: auto;
     background: #f8f8f8 !important;
     border: 1px solid #f5f5f5;
@@ -417,15 +425,19 @@ h3 span {
 	color: black;
 }
 
-h3 button {
-	float: right;
-	margin-right: 30px;
+li source-loader {
+	display: block;
+    text-align: right;
+}
+
+li source-loader button {
+	/*float: right;*/
 	background: none;
 	margin-top: 3px;
 	border: none;
 }
 
-h3 button:hover {
+li source-loader button:hover {
 	text-decoration: underline;
 }
 
