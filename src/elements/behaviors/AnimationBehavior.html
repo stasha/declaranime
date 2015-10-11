@@ -281,7 +281,7 @@
 				for (var i = 0; i < this.children.length; ++i) {
 					var fx = this.children[i];
 					if (fx) {
-						this.tween.add(fx.start(this.element), this.parallel && !fx.offset ? 0 : parseFloat(fx.offset));
+						this.tween.add(fx.start(this.element), this.parallel && !fx.offset ? 0 : fx.offset);
 					}
 				}
 				return this.tween;

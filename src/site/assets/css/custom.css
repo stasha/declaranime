@@ -149,7 +149,7 @@ pre.small,
 
 .tag-list li a {
 	text-decoration: none;
-	color: rgba(0, 0, 0, 0.75);
+	color: #8c8c8c;
     text-decoration: none;
     width: 106px;
     display: inline-block;
@@ -158,7 +158,7 @@ pre.small,
     margin-bottom: 1px;
     margin-right: 1px;
 	float: left;
-	text-shadow: none;
+	text-shadow: 1px 1px 1px black;
 }
 .tag-list li a:before {
 	content: '<';
@@ -170,6 +170,7 @@ pre.small,
 .tag-list li a:hover {
 	background: rgba(255, 255, 255, 0.1);
 	color: rgba(255,255,255, 0.5);
+	text-shadow: none;
 }
 
 span.your-value select,
