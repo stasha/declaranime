@@ -2,6 +2,8 @@ body {
 	opacity: 0;
 }
 
+img { -ms-interpolation-mode: bicubic; }
+
 #banner {
 	padding: 20px;
 }
