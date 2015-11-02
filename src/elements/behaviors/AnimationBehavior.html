@@ -91,6 +91,14 @@
 				this.ignoreEaseSetting = true;
 			}
 		},
+		attached: function () {
+			if (!this.paused) {
+				this.start(this.element);
+			}
+		},
+		detached: function () {
+			this.tween = null;
+		},
 		get fromOptions() {
 			this.updateOptions();
 			return this._fromOptions;
@@ -110,6 +118,11 @@
 				return;
 			}
 			var newStr = str;
+
+			if (typeof str === 'function') {
+				return {execute: str};
+			}
+
 			var reg = new RegExp(/\( *([^)]+?) *\)/).exec(str);
 
 			if (reg[1]) {
@@ -141,7 +154,6 @@
 				"oncompleteall"
 			];
 			var clearPropName = [
-				"style",
 				"css"
 			];
 
@@ -159,10 +171,10 @@
 
 				return property;
 			}
-			//TODO fix fx-style properties mapping
+
 			function setOptions(properties) {
 				for (var i in properties) {
-					if (ignoreProps.indexOf(i) === -1){
+					if (ignoreProps.indexOf(i) === -1) {
 						if (typeof this[i] !== "undefined") {
 							var prop = translateProperty(i);
 							var val = this[i];
@@ -197,15 +209,80 @@
 			var self = this;
 			this.updateOptions();
 
+			this._toOptions = Polymer.Base.extend(this._toOptions, {
+				onStart: function (e) {
+					self.fire('start');
+					var func = self.stringToFunction(self.onstart);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				},
+				onUpdate: function (e) {
+					self.fire('update');
+					var func = self.stringToFunction(self.onupdate);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				},
+				onComplete: function (e) {
+					self.fire('complete');
+					var func = self.stringToFunction(self.oncomplete);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				},
+				onRepeat: function (e) {
+					self.fire('repeat');
+					var func = self.stringToFunction(self.onrepeat);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				},
+				onReverseComplete: function () {
+					self.fire('reversecomplete');
+					var func = self.stringToFunction(self.onreversecomplete);
+					if (func) {
+						func.event = {tween: self, element: self.element};
+						func.execute.call(func);
+					}
+				},
+				onCompleteParams: [this, self.element]
+			});
+
+
+			// Changing from style object to css object so tweenmax can understand it.
+			if (this._fromOptions.style) {
+				this._fromOptions = Polymer.Base.extend(this._fromOptions, this.styleStringToObject(this._fromOptions.style));
+				for (var n in this._fromOptions.css) {
+					this._fromOptions[n] = this._fromOptions.css[n];
+				}
+				delete this._fromOptions.css;
+				delete this._fromOptions.style;
+			}
+			if (this._toOptions.style) {
+				this._toOptions = Polymer.Base.extend(this._toOptions, this.styleStringToObject(this._toOptions.style));
+				for (var n in this._toOptions.css) {
+					this._toOptions[n] = this._toOptions.css[n];
+				}
+				delete this._toOptions.css;
+				delete this._toOptions.style;
+			}
+
 			if (!this.stagger) {
 				if (this._fromOptions) {
-					this.tween = TweenMax.fromTo(this.element, this.speed, this.fromOptions, this.toOptions);
+					this.tween = TweenMax.fromTo(this.element, this.speed, this._fromOptions, this._toOptions);
 				} else {
-					this.tween = TweenMax.to(this.element, this.speed, this.toOptions);
+					this.tween = TweenMax.to(this.element, this.speed, this._toOptions);
 				}
 			} else {
 
 				onCompleteAll = function (e) {
+					self.fire('complete');
+					self.fire('completeall');
 					var func = self.stringToFunction(self.oncompleteall);
 					if (func) {
 						func.event = {tween: self, element: self.element};
@@ -213,15 +290,20 @@
 					}
 				};
 
+
+
 				if (this._fromOptions) {
-					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this.fromOptions, this.toOptions, parseFloat(this.stagger), onCompleteAll);
+					this.tween = TweenMax.staggerFromTo(this.element, this.speed, this._fromOptions, this._toOptions, parseFloat(this.stagger), onCompleteAll);
 				} else {
-					this.tween = TweenMax.staggerTo(this.element, this.speed, this.toOptions, parseFloat(this.stagger), onCompleteAll);
+					this.tween = TweenMax.staggerTo(this.element, this.speed, this._toOptions, parseFloat(this.stagger), onCompleteAll);
 				}
 			}
 			return this.tween;
 		},
-		start: function (element, context, onStart, onUpdate, onComplete) {
+		start: function (element) {
+
+			this.stop();
+
 			switch (typeof element) {
 				case "string":
 					this.selector = element;
@@ -231,6 +313,8 @@
 					if (typeof this.element === "string") {
 						this.selector = this.element;
 						this.element = [].slice.call(document.querySelectorAll(this.element));
+					} else if (this.selector) {
+						this.element = [].slice.call(document.querySelectorAll(this.selector));
 					}
 					break;
 				default:
@@ -239,53 +323,7 @@
 
 			this.preStart && typeof this.preStart === "function" && this.preStart();
 
-			var self = this;
-
-
-			this.toOptions = Polymer.Base.extend(this.toOptions, {
-				onStart: function (e) {
-					onStart && onStart(e);
-					var func = self.stringToFunction(self.onstart);
-					if (func) {
-						func.event = {tween: self, element: self.element, context: context};
-						func.execute.call(func);
-					}
-				},
-				onUpdate: function (e) {
-					onUpdate && onUpdate(e);
-					var func = self.stringToFunction(self.onupdate);
-					if (func) {
-						func.event = {tween: self, element: self.element, context: context};
-						func.execute.call(func);
-					}
-				},
-				onComplete: function (e) {
-					onComplete && onComplete(e);
-					var func = self.stringToFunction(self.oncomplete);
-					if (func) {
-						func.event = {tween: self, element: self.element, context: context};
-						func.execute.call(func);
-					}
-				},
-				onRepeat: function (e) {
-					var func = self.stringToFunction(self.onrepeat);
-					if (func) {
-						func.event = {tween: self, element: self.element, context: context};
-						func.execute.call(func);
-					}
-				},
-				onReverseComplete: function () {
-					var func = self.stringToFunction(self.onreversecomplete);
-					if (func) {
-						func.event = {tween: self, element: self.element, context: context};
-						func.execute.call(func);
-					}
-				},
-				onCompleteParams: [this, element, context]
-			});
-
-
-			if (this.is === "fx-timeline") {
+			if (this.is === "fx-timeline" && this.paused === false) {
 				this.tween = new TimelineMax(this.toOptions);
 
 				for (var i = 0; i < this.children.length; ++i) {
@@ -297,29 +335,74 @@
 				return this.tween;
 			}
 
-
+			this.paused = false;
 			return this.play();
 		},
-		stop: function () {
-			this.tween && this.tween.stop();
+		getStyleObject: function (val) {
+			if (!val) {
+				return {};
+			}
+			val = this.styleStringToObject(val);
+			if (val.indexOf("{") !== 0) {
+				val = "{" + val;
+			}
+			if (val.indexOf("}") !== val.length - 1) {
+				val += "}";
+			}
+
+
+
+			return val.replace(/\'/g, "\"");
 		},
-		pause: function () {
-			this.tween && this.tween.pause();
+		dashedToCamel: function (str) {
+			var prop = str.replace(/-([a-z])/g, function (g) {
+				return g[1].toUpperCase();
+			});
+			return prop;
 		},
-		resume: function () {
-			this.tween && this.tween.resume();
+		styleStringToObject: function (str) {
+			var keyValue = str.split(";");
+			var obj = {};
+			for (var i = 0; i < keyValue.length; ++i) {
+				var split = keyValue[i].split(":");
+				obj[this.dashedToCamel(split[0].trim())] = split[1].trim();
+			}
+
+			return obj;
 		},
-		reverse: function () {
-			this.tween && this.tween.reverse();
+		stop: function (index) {
+			this.setState('kill', index);
+		},
+		pause: function (index) {
+			this.setState('pause', index);
+		},
+		resume: function (index) {
+			this.setState('resume', index);
+		},
+		reverse: function (index) {
+			this.setState('reverse', index);
+		},
+		kill: function (index) {
+			this.setState('kill', index);
+		},
+		setState: function (state, index) {
+			if (this.tween && this.tween.length > 0) {
+				if (index != null) {
+					this.tween[index][state]();
+				} else {
+					for (var i = 0; i < this.tween.length; ++i) {
+						this.tween[i][state]();
+					}
+				}
+			} else if (this.tween) {
+				this.tween[state]();
+			}
 		},
 		seek: function (time) {
 			this.tween && this.tween.seek(time);
 		},
 		timeScale: function (scale) {
 			this.tween && this.tween.timeScale(scale);
-		},
-		kill: function () {
-			this.tween && this.tween.kill();
 		},
 		clone: function () {
 			return this.cloneNode(true);

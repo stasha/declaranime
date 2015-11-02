@@ -73,7 +73,7 @@
 								<li> Bullet 2</li>
 								<li> Bullet 3</li>
 							</ul>
-							<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
+							<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" paused ease="Elastic.easeOut"></fx-move>
 							<button onclick="document.getElementById('moving-list').start()">Start</button>
 						</div>
 
@@ -83,7 +83,8 @@
 							stagger="0.2" 
 							from-x="0" 
 							to-x="150" 
-							speed="2" 
+							speed="2"
+							paused
 							ease="Elastic.easeOut">
 							&lt;/fx-move></div>
 					</section>
@@ -101,7 +102,7 @@
 								<div class="rotating-box"></div>
 								<div class="rotating-box"></div>
 							</div>
-							<fx-rotate-3d id="rotating-box" element=".rotating-box" stagger="0.3" to-rotation-x="+=180" to-rotation-z="+=180" speed="3"  ease="Elastic.easeOut"></fx-rotate-3d>
+							<fx-rotate-3d id="rotating-box" element=".rotating-box" stagger="0.3" to-rotation-x="+=180" to-rotation-z="+=180" speed="3" paused ease="Elastic.easeOut"></fx-rotate-3d>
 							<button onclick="document.getElementById('rotating-box').start()">Start</button>
 						</div>
 
@@ -112,6 +113,7 @@
 							to-rotation-x="+=180" 
 							to-rotation-z="+=180" 
 							speed="3"
+							paused
 							ease="Elastic.easeOut">
 							&lt;/fx-rotate-3d></div>
 					</section>
@@ -125,7 +127,7 @@
 						Create complex html animations
 						<div class="homepage-example">
 							<div class="timeline-box"></div>
-							<fx-timeline element=".timeline-box" id="timeline" yoyo repeat="2">
+							<fx-timeline element=".timeline-box" id="timeline" yoyo puased repeat="2">
 								<fx-move to-x="150"></fx-move>
 								<fx-move to-y="80"></fx-move>
 								<fx-rotate to-rotation="+=180"></fx-rotate>
@@ -135,7 +137,7 @@
 						</div>
 
 						<div class="pre small">&lt;fx-timeline element=".timeline-box" 
-							id="timeline" yoyo repeat="2">
+							id="timeline" yoyo puased repeat="2">
 							&lt;fx-move to-x="150">&lt;/fx-move>
 							&lt;fx-move to-y="80">&lt;/fx-move>
 							&lt;fx-rotate to-rotation="+=180">

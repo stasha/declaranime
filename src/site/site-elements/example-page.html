@@ -1,0 +1,123 @@
+<dom-module id="example-page">
+
+	<link rel="import" href="../../elements/declaranime.html" />
+	<script src="../assets/js/components-ready.js"></script>
+	<link rel="import" href="../site-elements/page-head.html" />
+	<link rel="import" href="../site-elements/examples-navigation.html" />
+	<link rel="import" href="../site-elements/syntax-switcher.html" />
+	<link rel="import" href="../site-elements/api-script.html" />
+	<link rel="import" href="../site-elements/expand-collapse.html" />
+	<link rel="import" href="../site-elements/source-loader.html" />
+	<link rel="import" href="../site-elements/example-switcher.html" />
+
+	<template>
+		<page-header></page-header>
+
+		<page-content>
+			<div class="row">
+				<examples-navigation selected="[[title]]" class="3u 12u(mobile)"></examples-navigation>
+
+				<div class="9u 12u(mobile) important(mobile)">
+
+					<section>
+						<header class="relative clearfix">
+							<div class="pull-left">
+								<h2>{{title}}</h2>
+								<p class="description">[[description]]</p>
+							</div>
+							<syntax-switcher class="pull-right"></syntax-switcher>
+							<div class="clearfix"></div>
+							<source-loader label="[[sourceTitle(title)]]" url="[[sourceUrl(title)]]"></source-loader>
+						</header>
+						<div class="example-section">
+							<example-switcher examples-selector=".example-section"></example-switcher>
+							<div class="examples">
+								<content></content>
+							</div>
+
+							<button id="start" on-click="changeState">Start</button>
+							<button id="pause" disabled on-click="changeState">Pause</button>
+							<button id="resume" style="display: none;" on-click="changeState">Resume</button>
+							<button id="reverse" disabled on-click="changeState">Reverse</button>
+							<p class="fx-example-title">Example code</p>
+							<div id="fx-example"></div>
+							<div class="api-lists">
+								
+
+								<div class="clearfix"></div>
+								<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
+								<div class="clearfix"></div>
+								<ul class="properties"></ul>
+								<div class="inherited"></div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</page-content>
+
+		<page-footer></page-footer>
+		<api-script id="api-script" syntax-switcher="syntax-switcher"></api-script>
+	</template>
+	<script>
+		Polymer({
+			is: "example-page",
+			properties: {
+				title: {
+					type: String
+				},
+				description: {
+					type: String
+				}
+			},
+			sourceTitle: function () {
+				return this.title + " source";
+			},
+			sourceUrl: function () {
+				return "../../elements/" + this.title + ".html";
+			},
+			changeState: function(e){
+				var state = e.target.id;
+				var animation = document.querySelector('.example.selected .fx');
+				var self = this;
+				animation.addEventListener('complete', function(e){
+					setButtons('play', true);
+				});
+				animation.addEventListener('reversecomplete', function(e){
+					setButtons('play', true, true);
+				});
+				animation.addEventListener('update', function(e){
+					setButtons('play');
+				});
+				
+				animation[state]();
+				setButtons(state);
+
+					function setButtons(state, disablePause, disableReverse){
+						switch(state){
+						case 'pause':
+						case 'stop':
+								self.$.resume.style.display = 'inline';
+								self.$.pause.style.display = 'none';
+							break;
+						default:
+							self.$.resume.style.display = 'none';
+							self.$.pause.style.display = 'inline';
+							if(disablePause){
+								self.$.pause.setAttribute('disabled', 'disabled');
+							} else {
+								self.$.pause.removeAttribute('disabled');
+							}
+							if(disableReverse){
+								self.$.reverse.setAttribute('disabled', 'disabled');
+							} else {
+								self.$.reverse.removeAttribute('disabled');
+							}
+					}
+				}
+				
+				
+			}
+		});
+	</script>
+</dom-module>

@@ -111,9 +111,13 @@ pre.small,
 	background: blue;
 }
 
+button:disabled {
+	cursor: default !important;
+}
+
 .homepage-example button {
-	border: 0;
-	color: white;
+	border: 1px solid transparent;
+	color: rgba(255,255,255, 0.5);
 	background: rgba(0,0,0, 0.3);
 	position: absolute;
 	bottom: 10px;
@@ -121,6 +125,11 @@ pre.small,
 	padding: 5px 10px;
 	cursor: pointer;
 	line-height: 16px;
+	text-shadow: none;
+}
+
+.homepage-example button:hover {
+	border-color: #5F5D5D;
 }
 
 .flex,
@@ -193,6 +202,10 @@ example-switcher select {
 	font-size: 12px;
 }
 
+#content header {
+    margin: 0 0 0.1em 0 !important;
+}
+
 
 ul.api-list li:first-child {
 	border-bottom: 1px dashed #e2e6e8;
@@ -238,9 +251,10 @@ span.property,
 span.type,
 span.default-label,
 span.default-value,
+span.example-value,
 span.inherited-from {
 	display: inline-block;
-    width: 154px;
+    width: 120px;
 	padding: 0 10px;
 }
 
@@ -249,18 +263,26 @@ span.inherited-from {
 }
 
 span.type {
-    width: 80px;
+    width: 60px;
 }
 
 span.default-label {
 	width: 60px;
 }
 
-span.default-value {
+span.default-value,
+span.example-value {
 	width: 130px;
 	text-align: center;
 	margin-right: 10px;
 }
+
+span.example-value {
+	width: 150px;
+	text-align: left;
+	padding-left: 0;
+}
+
 input[type="text"],
 select {
 	padding: 2px 3px;
@@ -281,8 +303,14 @@ span.your-value input.Number {
 	width: 50px;
 }
 
+.fx-example-title {
+	margin-bottom: 0;
+    margin-top: 20px;
+    font-family: Arial;
+    font-size: 14px;
+}
+
 #fx-example {
-	margin-top: 20px;
 	font-family: monospace;
 	background: #f5f5f5;
 	padding: 10px;
@@ -345,29 +373,45 @@ syntax-switcher span {
 	align-items: center;
 }
 
-button {
-	border: 1px solid #ccc;
-	margin: 0 1px;
-	line-height: normal;
-	padding: 5px 10px;
-	cursor: pointer;
-	background: #e2e6e8;
+button,
+button:disabled:hover{
+    border: 1px solid #E4DBDB;
+    margin: 2px;
+    line-height: normal;
+    padding: 9px 15px;
+    cursor: pointer;
+    background: #e2e6e8;
+    border-radius: 16px;
+    text-shadow: 1px 1px white;
+    outline: 0;
 }
 
 button:hover {
-
+	text-shadow: none;
+	border: 1px solid #ccc;
+	outline: 0;
 }
 
-button[value="js"].html, 
-button[value="html"].js {
-	background: none;
-	border-color: transparent;
-	text-decoration: underline;
-}
 
 button[value="html"].html, 
 button[value="js"].js {
-	/*background: #ce7b00;*/
+	margin: 0 10px;
+}
+
+button[value="js"].html, 
+button[value="html"].js,
+.link {
+	background: none;
+	border: 0 !important;
+	color: #337ab7;
+	padding: 0;
+	outline: 0;
+}
+
+button[value="js"].html:hover, 
+button[value="html"].js:hover,
+.link:hover {
+	text-decoration: underline;
 }
 
 .examples {
@@ -386,6 +430,10 @@ button[value="js"].js {
 	height: auto;
 }
 
+p.description {
+	margin-bottom: 0;
+}
+
 .example p {
 	padding: 0 0 10px 0;
     position: relative;
@@ -397,6 +445,7 @@ button[value="js"].js {
     font-family: Arial;
     font-size: 12px;
 }
+
 
 h3 {
 	position: relative;
@@ -502,6 +551,7 @@ expand-collapse .divider {
 	display: inline-block;
     font-size: 5px;
     line-height: normal;
+	margin: 0 10px;
 }
 
 expand-collapse button {
@@ -510,4 +560,21 @@ expand-collapse button {
 }
 expand-collapse button:hover {
 	text-decoration: underline;
+}
+
+.examples-navigation li {
+	padding: 0;
+}
+#content .examples-navigation li.selected {
+	/* border-bottom-style: dashed; */
+/*    position: relative;
+    margin-right: -55px;
+    background: white;
+*/}
+.examples-navigation li.selected a {
+	padding-left: 20px;
+}
+
+.examples-navigation li a {
+	display: block;
 }

@@ -1,11 +1,7 @@
 <dom-module id="example-switcher">
 	<template>
 		<span>Change example</span>
-		<select on-change="exampleHasChanged">
-			<template is="dom-repeat" items="{{examples}}">
-			<option value="{{getItem(item)}}">{{getItem(item)}}</option>
-			</template>
-		</select>
+		<span id="example-switcher-select"></span>
 	</template>
 	<script>
 		Polymer({
@@ -16,30 +12,50 @@
 				},
 				examples: {
 					type: Array,
-					value: []
-				},
-				apiScript: {
-					type: Object,
-					value: document.querySelector("#api-script")
+					value: [],
+					observer: 'createExampleList'
 				}
 			},
-			attached: function(){
-				this.async(function(){
-					this.examples =  Array.prototype.slice.call(document.querySelectorAll(this.examplesSelector + " .example"));
+			get apiScript() {
+				return document.querySelector("#api-script");
+			},
+			attached: function () {
+				this.async(function () {
+					this.examples = Array.prototype.slice.call(document.querySelectorAll(this.examplesSelector + " .example"));
 				});
 			},
-			getItem: function(item){
+			createExampleList: function (newValue) {
+				if (newValue) {
+					this.async(function () {
+						if (!this.select) {
+							this.select = document.createElement("select");
+							this.select.addEventListener('change', this.exampleHasChanged.bind(this));
+							this.querySelector("#example-switcher-select").appendChild(this.select);
+						}
+						this.select.innerHTML = '';
+
+						for (var i = 0; i < newValue.length; ++i) {
+							var option = document.createElement("option");
+							var name = newValue[i].getAttribute("name");
+							option.setAttribute("value", name);
+							option.innerHTML = name;
+							this.select.appendChild(option);
+						}
+					});
+				}
+			},
+			getItem: function (item) {
 				return item.getAttribute("name");
 			},
-			exampleHasChanged: function(e){
+			exampleHasChanged: function (e) {
 				console.log(e.target.value);
-				for(var i = 0; i < this.examples.length; ++i){
+				for (var i = 0; i < this.examples.length; ++i) {
 					var example = this.examples[i];
-					if(example.className.indexOf("selected") > -1){
+					if (example.className.indexOf("selected") > -1) {
 						this.close(example);
 					}
 					example.classList.remove("selected");
-					if(e.target.value === example.getAttribute("name")){
+					if (e.target.value === example.getAttribute("name")) {
 						example.classList.add("selected");
 						this.apiScript.createExample();
 						this.apiScript.updateInputValues();

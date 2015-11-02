@@ -8,26 +8,39 @@
 					<h2><a href="../examples/index.html">Examples</a></h2>
 				</header>
 				<ul class="link-list">
-					<li><a href="../examples/fx-animate.html">fx-animate</a></li>
-					<li><a href="../examples/fx-class.html">fx-class</a></li>
-					<li><a href="../examples/fx-drag.html">fx-drag</a></li>
-					<li><a href="../examples/fx-fade.html">fx-fade</a></li>
-					<li><a href="../examples/fx-move.html">fx-move</a></li>
-					<li><a href="../examples/fx-resize.html">fx-resize</a></li>
-					<li><a href="../examples/fx-rotate.html">fx-rotate</a></li>
-					<li><a href="../examples/fx-rotate-3d.html">fx-rotate-3d</a></li>
-					<li><a href="../examples/fx-scale.html">fx-scale</a></li>
-					<li><a href="../examples/fx-skew.html">fx-skew</a></li>
-					<li><a href="../examples/fx-slide.html">fx-slide</a></li>
-					<li><a href="../examples/fx-style.html">fx-style</a></li>
-					<li><a href="../examples/fx-timeline.html">fx-timeline</a></li>
+					<li class="fx-animate"><a href="../examples/fx-animate.html">fx-animate</a></li>
+					<li class="fx-class"><a href="../examples/fx-class.html">fx-class</a></li>
+					<li class="fx-drag"><a href="../examples/fx-drag.html">fx-drag</a></li>
+					<li class="fx-fade"><a href="../examples/fx-fade.html">fx-fade</a></li>
+					<li class="fx-move"><a href="../examples/fx-move.html">fx-move</a></li>
+					<li class="fx-resize"><a href="../examples/fx-resize.html">fx-resize</a></li>
+					<li class="fx-rotate"><a href="../examples/fx-rotate.html">fx-rotate</a></li>
+					<li class="fx-rotate-3d"><a href="../examples/fx-rotate-3d.html">fx-rotate-3d</a></li>
+					<li class="fx-scale"><a href="../examples/fx-scale.html">fx-scale</a></li>
+					<li class="fx-skew"><a href="../examples/fx-skew.html">fx-skew</a></li>
+					<li class="fx-slide"><a href="../examples/fx-slide.html">fx-slide</a></li>
+					<li class="fx-style"><a href="../examples/fx-style.html">fx-style</a></li>
+					<li class="fx-timeline"><a href="../examples/fx-timeline.html">fx-timeline</a></li>
 				</ul>
 			</section>
 		</div>
 	</template>
 	<script>
 		Polymer({
-			is: "examples-navigation"
+			is: "examples-navigation",
+			properties: {
+				selected: {
+					type: String,
+					observer: 'selectItem'
+				}
+			},
+			selectItem: function(newValue){
+				if(newValue){
+					this.async(function(){
+						this.querySelector("." + newValue).classList.add("selected");
+					})
+				}
+			}
 		});
 	</script>
 </dom-module>

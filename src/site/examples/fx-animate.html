@@ -6,87 +6,37 @@
 -->
 <html>
 	<head>
-		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="stylesheet" href="../assets/css/custom.css" />
-		<link rel="import" href="../../elements/declaranime.html" />
-		<script src="../assets/js/components-ready.js"></script>
-		<link rel="import" href="../site-elements/page-head.html" />
-		<link rel="import" href="../site-elements/examples-navigation.html" />
-		<link rel="import" href="../site-elements/syntax-switcher.html" />
-		<link rel="import" href="../site-elements/api-script.html" />
-		<link rel="import" href="../site-elements/expand-collapse.html" />
-		<link rel="import" href="../site-elements/source-loader.html" />
-		<link rel="import" href="../site-elements/example-switcher.html" />
+		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="import" href="../site-elements/example-page.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<page-header></page-header>
+<example-page title="fx-animate" description="description">
 
-<page-content>
-	<div class="row">
-		<examples-navigation class="3u 12u(mobile)"></examples-navigation>
-
-		<div class="9u 12u(mobile) important(mobile)">
-
-			<section>
-				<header class="relative clearfix">
-					<div class="pull-left">
-						<h2>fx-animate</h2>
-						<h3>Animate anything</h3>
-						<p>description</p>
-					</div>
-						<syntax-switcher class="pull-right"></syntax-switcher>
-					<div class="clearfix"></div>
-					<source-loader label="fx-animate source" url="../../elements/fx-animate.html"></source-loader>
-				</header>
-				<div class="example-section">
-					<example-switcher examples-selector=".example-section"></example-switcher>
-					<div class="examples">
-						<div name="Simple example 1" class="example selected">
-							<p>description 1</p>
-							<div class="example-box"></div>
-							<fx-animate class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-animate>
-						</div>
-						<div name="Simple example 2" class="example">
-							<p>description 2</p>
-							<ul class="moving-list">
-								<li> Bullet 1</li>
-								<li> Bullet 2</li>
-							</ul>
-							<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
-						</div>
-						<div name="Simple example 3" class="example">
-							<p>description 3</p>
-							<ul class="moving-list">
-								<li> Bullet 1</li>
-								<li> Bullet 2</li>
-								<li> Bullet 3</li>
-							</ul>
-							<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
-						</div>
-					</div>
-
-					<button onclick="document.querySelector('.example.selected .fx').start()">Start</button>
-					<button onclick="document.querySelector('.example.selected .fx').pause()">Pause</button>
-					<button onclick="document.querySelector('.example.selected .fx').stop()">Stop</button>
-					<button onclick="document.querySelector('.example.selected .fx').reverse()">Reverse</button>
-					<p>Example code</p>
-					<div id="fx-example"></div>
-					<div class="api-lists">
-
-						<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
-						<div class="clearfix"></div>
-						<ul class="properties"></ul>
-						<div class="inherited"></div>
-					</div>
-				</div>
-			</section>
-		</div>
+	<div name="Simple example 1" class="example selected">
+		<p>description 1</p>
+		<img class="example-box" src="../images/pf_2013.png" width="100%" height="100%" />
+		<fx-animate class="fx" element=".example.selected .example-box" paused speed="5" ease="Power2.easeInOut" from-x="0" to-x="150" from-rotation="0" to-rotation="360" from-style="border-radius: 0; box-shadow: none" to-style="border-radius: 50px; box-shadow: 5px 5px 5px black"></fx-animate>
 	</div>
-</page-content>
+	<div name="Simple example 2" class="example">
+		<p>description 2</p>
+		<img src="../images/pf_2013.png" width="100" height="100" />
+		<img src="../images/pf_2013.png" width="100" height="100" />
+		<img src="../images/pf_2013.png" width="100" height="100" />
+		<fx-animate class="fx" element=".example.selected img" stagger="0.3" from-x="0" to-x="150" speed="2" paused ease="Power0.easeNone"></fx-animate>
+	</div>
+	<div name="Simple example 3" class="example">
+		<p>description 3</p>
+		<ul class="moving-list">
+			<li> Bullet 1</li>
+			<li> Bullet 2</li>
+			<li> Bullet 3</li>
+		</ul>
+		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="1" paused ease="Power3.easeIn"></fx-animate>
+	</div>
 
-<page-footer></page-footer>
-<api-script id="api-script" syntax-switcher="syntax-switcher"></api-script>
+</example-page>
 </body>
 </html>

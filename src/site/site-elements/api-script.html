@@ -42,8 +42,17 @@
 			],
 			ignoreProps: [
 				"reverseOnBack",
-				"reverse-on-back"
+				"startAt",
+				"reverse-on-back",
+				"onStart",
+				"onUpdate",
+				"onComplete",
+				"onCompleteAll",
+				"onReverseComplete",
+				"onRepeat",
+				"onCompleteParams"
 			],
+			behaviorProperties: [],
 			is: "api-script",
 			properties: {
 				selector: {
@@ -62,6 +71,12 @@
 			setSyntaxSwitcher: function (newValue) {
 				if (newValue) {
 					this._syntaxSwitcher = document.querySelector(newValue);
+					if(!this._syntaxSwitcher){
+						this.debounce('CALL-SWITCHER', function(){
+							this.setSyntaxSwitcher(newValue);
+						}, 500);
+						return;
+					}
 					var self = this;
 					this._syntaxSwitcher.addEventListener("click", function (e) {
 						var props = document.querySelectorAll("span.property");
@@ -111,7 +126,7 @@
 					inherited.appendChild(section);
 					inherited.appendChild(ul);
 					var list = "";
-					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-value">default value</span><span class="your-value">example value</span></li>';
+					list += '<li><span class="property">property</span> : <span class="type">type</span> <span class="default-value">default value</span><span class="example-value">example value</span><span class="description">description</span></li>';
 					for (var n in props) {
 						if (this.ignoreProps.indexOf(n) > -1) {
 							continue;
@@ -147,9 +162,9 @@
 
 						list += '<li class="api-item">' + html + '</li>';
 					}
-					
+
 					list += '<li><source-loader url="../../elements/behaviors/' + behaviorName + '.html"></source-loader></li>';
-					
+
 					ul.innerHTML = list;
 					var self = this;
 					function updateValues(e) {
@@ -173,19 +188,19 @@
 				var el = document.querySelector(this.selector);
 				el.updateOptions();
 
-				console.log(el.fromOptions);
-				console.log("---");
-				console.log(el.toOptions);
-
 
 				var behaviors = el.behaviors;
+				this.behaviorProperties = [];
 				for (var i = 0; i < behaviors.length; ++i) {
 					var behavior = behaviors[i];
 					var props = behavior.properties;
 
 					for (var p in props) {
+						this.behaviorProperties.push(p.replace(/^from/, "").replace(/^to/, "").trim().replace(/(^\w)/, function (match) {
+							return match.toLowerCase();
+						}));
 						var input = document.querySelector('[name="' + p + '"]');
-						if(!input){
+						if (!input) {
 							continue;
 						}
 						var type = (props[p].type && (props[p].type + "").split(" ")[1].replace("()", ""));
@@ -211,6 +226,7 @@
 				var html = '';
 
 				if (this.type === 'js') {
+					
 					if (parseFloat(el.stagger)) {
 						tagName = 'TweenMax.staggerTo';
 						if (Object.keys(el.fromOptions).length > 0) {
@@ -243,32 +259,47 @@
 					if (this.type === "js") {
 						html += '<span class="attribute-value">"' + el.selector + '"</span>,';
 						html += ' <span class="attribute-value">' + el.speed + '</span>';
-						var c = 0;
+						
 						if (Object.keys(el.fromOptions).length > 0) {
 							html += ", {";
 							for (var i in el.fromOptions) {
-								if (c > 0) {
-									html += ", ";
+								if (this.ignoreProps.indexOf(i) > -1) {
+									continue;
 								}
-								c++;
-								var val = el.fromOptions[i];
-								val = typeof val === "string" ? "\"" + val + "\"" : val;
-								html += '<span class="tag-attribute">' + i + ': <span class="attribute-value">' + val + '</span></span>';
+								
+								var obj = this.getObjValue(i, el.fromOptions[i]);
+
+								if (this.behaviorProperties.indexOf(obj.key) === -1) {
+									
+								}
+
+								for(var n in obj){
+									html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + obj[n] + '</span></span>, ';
+								}
 							}
+							
+							html = html.replace(/,\s$/, '');
 							html += "}";
 						}
 
 						html += ", {";
-						c = 0;
+						
 						for (var i in el.toOptions) {
-							if (c > 0) {
-								html += ", ";
+							if (this.ignoreProps.indexOf(i) > -1) {
+								continue;
 							}
-							c++;
-							var val = el.toOptions[i];
-							val = typeof val === "string" ? "\"" + val + "\"" : val;
-							html += '<span class="tag-attribute">' + i + ': <span class="attribute-value">' + val + '</span></span>';
+							
+							var obj = this.getObjValue(i, el.toOptions[i]);
+
+							if (this.behaviorProperties.indexOf(obj.key) === -1) {
+								
+							}
+
+							for(var n in obj){
+								html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + obj[n] + '</span></span>, ';
+							}
 						}
+						html = html.replace(/,\s$/, '');
 						html += "}";
 
 					} else {
@@ -280,20 +311,17 @@
 							if ((behaviorName === "AnimationBehavior" && el[p]) || (behaviorName !== "AnimationBehavior" && el[p] != null)) {
 								var attr = this.changePropertyFormat(p, this.type);
 								var val = el[p];
-								if(!val){
+								if (!val) {
 									continue;
 								}
-								if (p === "fromStyle" || p === "toStyle") {
-									html += '<span class="tag-attribute">' + attr + '=\'<span class="attribute-value">' + val + '</span>\'</span>';
+
+								if (typeof el[p] === "boolean") {
+									html += ' <span class="tag-attribute">' + attr + '</span>';
 								} else {
-									if (typeof el[p] === "boolean") {
-										html += ' <span class="tag-attribute">' + attr + '</span>';
-									} else {
-										if (p === "element") {
-											val = el.selector;
-										}
-										html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + val + '</span>"</span>';
+									if (p === "element") {
+										val = el.selector;
 									}
+									html += ' <span class="tag-attribute">' + attr + '="<span class="attribute-value">' + val + '</span>"</span>';
 								}
 							}
 						}
@@ -325,6 +353,25 @@
 					var attr = str.replace(/\W+/g, '-').replace(/([a-z\d])([A-Z]+)/g, '$1-$2');
 					return attr.replace(/\W+/g, '-').replace(/([A-Z\d])([A-Z]+)/g, '$1-$2').toLowerCase();
 				}
+			},
+			getObjValue: function (prop, val) {
+				var key = prop;
+				if (prop === "style") {
+					var el = document.querySelector(this.selector);
+					var obj = el.styleStringToObject.call(el, val);
+					for(var n in obj){
+						obj[n] = "\"" + obj[n] + "\"";
+					}
+					return obj;
+				}
+				var obj = {};
+				
+				if(this.behaviorProperties.indexOf(prop) === -1){
+					val = "\"" + val + "\"";
+				}
+				
+				obj[prop] = val;
+				return obj;
 			}
 		});
 	</script>
