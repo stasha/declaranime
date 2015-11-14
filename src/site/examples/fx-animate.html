@@ -9,34 +9,36 @@
 		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../site-elements/example-page.html" />
-
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<example-page title="fx-animate" description="description">
+<example-page title="fx-animate" description="Animate anyting...<br /><span class='normal'>You can move, rotate, fade, scale, resize, skew, change styles or swap classes.<br />
+			  Note that fx-animate can animate everything, but everything will start and end in the same time.</span>">
 
-	<div name="Simple example 1" class="example selected">
-		<p>description 1</p>
-		<img class="example-box" src="../images/pf_2013.png" width="100%" height="100%" />
-		<fx-animate class="fx" element=".example.selected .example-box" paused speed="5" ease="Power2.easeInOut" from-x="0" to-x="150" from-rotation="0" to-rotation="360" from-style="border-radius: 0; box-shadow: none" to-style="border-radius: 50px; box-shadow: 5px 5px 5px black"></fx-animate>
+	<div name="Animate all" class="example selected">
+		<h3>Animate all.</h3>
+		<p></p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element="#example-image-1" paused speed="2" immediate-render repeat="5" yoyo repeat-delay="0.5"
+					from-opacity="0.3" to-opacity="1" 
+					from-scale-x="0.8" to-scale-x="1"
+					from-scale-y="0.8" to-scale-y="1"
+					from-x="0" to-x="250"
+					from-y="0" to-y="100"
+					from-rotation="0" to-rotation="360"
+					from-rotation-x="0" to-rotation-x="360"
+					from-rotation-y="0" to-rotation-y="360"
+					from-rotation-z="0" to-rotation-z="360"
+					from-skew-x="0" to-skew-x="360"
+					from-skew-y="0" to-skew-y="360"
+					from-width="120" to-width="100"
+					from-height="120" to-height="100"
+					from-class-name="start-class" to-class-name="end-class"
+					from-style="border-radius: 0" to-style="border-radius: 50px"
+				></fx-animate>
 	</div>
-	<div name="Simple example 2" class="example">
-		<p>description 2</p>
-		<img src="../images/pf_2013.png" width="100" height="100" />
-		<img src="../images/pf_2013.png" width="100" height="100" />
-		<img src="../images/pf_2013.png" width="100" height="100" />
-		<fx-animate class="fx" element=".example.selected img" stagger="0.3" from-x="0" to-x="150" speed="2" paused ease="Power0.easeNone"></fx-animate>
-	</div>
-	<div name="Simple example 3" class="example">
-		<p>description 3</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-			<li> Bullet 3</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="1" paused ease="Power3.easeIn"></fx-animate>
-	</div>
-
 </example-page>
 </body>
 </html>

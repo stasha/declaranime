@@ -23,11 +23,11 @@
 						<header class="relative clearfix">
 							<div class="pull-left">
 								<h2>{{title}}</h2>
-								<p class="description">[[description]]</p>
+								<p class="description"></p>
 							</div>
 							<syntax-switcher class="pull-right"></syntax-switcher>
 							<div class="clearfix"></div>
-							<source-loader label="[[sourceTitle(title)]]" url="[[sourceUrl(title)]]"></source-loader>
+							<source-loader hidden="[[hideSource]]" label="[[sourceTitle(title)]]" url="[[sourceUrl(title)]]"></source-loader>
 						</header>
 						<div class="example-section">
 							<example-switcher examples-selector=".example-section"></example-switcher>
@@ -67,7 +67,12 @@
 					type: String
 				},
 				description: {
-					type: String
+					type: String,
+					observer: 'setDescription'
+				},
+				hideSource: {
+					type: Boolean,
+					value: false
 				}
 			},
 			sourceTitle: function () {
@@ -75,6 +80,9 @@
 			},
 			sourceUrl: function () {
 				return "../../elements/" + this.title + ".html";
+			},
+			setDescription: function(newValue){
+				this.querySelector(".description").innerHTML = newValue;
 			},
 			changeState: function(e){
 				var state = e.target.id;

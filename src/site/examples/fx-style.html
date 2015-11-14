@@ -9,35 +9,21 @@
 		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../site-elements/example-page.html" />
-
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<example-page title="fx-style" description="Animate element style properties">
+<example-page title="fx-style" description="Animate element styles.">
 
-	<div name="Simple example 1" class="example selected">
-		<p>description 1</p>
-		<div class="example-box"></div>
-		<fx-style class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-style>
+	<div name="Style" class="example selected">
+		<h3>Style</h3>
+		<p>Style.</p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-style class="fx" element="#example-image-1" paused speed="1" immediate-render repeat="5" yoyo repeat-delay="0.5"
+				  from-style="border-radius: 0; box-shadow: none" to-style="border-radius: 50px; box-shadow: 10px 10px 10px 5px #ccc"
+				></fx-style>
 	</div>
-	<div name="Simple example 2" class="example">
-		<p>description 2</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
-	</div>
-	<div name="Simple example 3" class="example">
-		<p>description 3</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-			<li> Bullet 3</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
-	</div>
-
 </example-page>
 </body>
 </html>

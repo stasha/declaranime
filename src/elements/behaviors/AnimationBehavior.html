@@ -16,7 +16,9 @@
 				type: Number
 			},
 			immediateRender: {
-				type: Boolean
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
 			},
 			reverseOnBack: {
 				type: Boolean,
@@ -48,6 +50,12 @@
 			yoyo: {
 				type: Boolean,
 				reflectToAttribute: true
+			},
+			perspective: {
+				type: Number
+			},
+			transformPerspective: {
+				type: Number
 			},
 			repeat: {
 				type: Number,
@@ -95,6 +103,10 @@
 			if (!this.paused) {
 				this.start(this.element);
 			}
+
+			if (this.immediateRender) {
+				TweenMax.set(this.element, this.fromOptions);
+			}
 		},
 		detached: function () {
 			this.tween = null;
@@ -125,7 +137,7 @@
 
 			var reg = new RegExp(/\( *([^)]+?) *\)/).exec(str);
 
-			if (reg[1]) {
+			if (reg && reg[1]) {
 				var args = reg[1].replace(/\s*,\s*/g, ",").split(",");
 
 				for (var i = 0; i < args.length; ++i) {
@@ -151,7 +163,13 @@
 				"speed",
 				"reverseOnBack",
 				"stagger",
-				"oncompleteall"
+				"onstart",
+				"oncomplete",
+				"onupdate",
+				"onrepeat",
+				"onreversecomplete",
+				"oncompleteall",
+				"perspective"
 			];
 			var clearPropName = [
 				"css"
@@ -211,42 +229,47 @@
 
 			this._toOptions = Polymer.Base.extend(this._toOptions, {
 				onStart: function (e) {
-					self.fire('start');
+					var event = {type: 'start', tween: self, element: self.element};
+					self.fire('start', event);
 					var func = self.stringToFunction(self.onstart);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				},
 				onUpdate: function (e) {
-					self.fire('update');
+					var event = {type: 'update', tween: self, element: self.element};
+					self.fire('update', event);
 					var func = self.stringToFunction(self.onupdate);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				},
 				onComplete: function (e) {
-					self.fire('complete');
+					var event = {type: 'complete', tween: self, element: self.element};
+					self.fire('complete', event);
 					var func = self.stringToFunction(self.oncomplete);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				},
 				onRepeat: function (e) {
-					self.fire('repeat');
+					var event = {type: 'repeat', tween: self, element: self.element};
+					self.fire('repeat', event);
 					var func = self.stringToFunction(self.onrepeat);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				},
 				onReverseComplete: function () {
-					self.fire('reversecomplete');
+					var event = {type: 'reversecomplete', tween: self, element: self.element};
+					self.fire('reversecomplete', event);
 					var func = self.stringToFunction(self.onreversecomplete);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				},
@@ -271,9 +294,21 @@
 				delete this._toOptions.css;
 				delete this._toOptions.style;
 			}
-			
-			if(!this.element){
+
+			if (!this.element) {
 				return;
+			}
+
+			if (this.perspective != null || this.transformPerspective != null) {
+				for (var i = 0; i < this.element.length; ++i) {
+					if (this.perspective != null) {
+						TweenMax.set(this.element[i].parentElement, {perspective: parseInt(this.perspective)});
+					}
+					if (this.transformPerspective != null) {
+						TweenMax.set(this.element[i], {transformPerspective: parseInt(this.transformPerspective)});
+					}
+
+				}
 			}
 
 			if (!this.stagger) {
@@ -285,11 +320,11 @@
 			} else {
 
 				onCompleteAll = function (e) {
-					self.fire('complete');
-					self.fire('completeall');
+					var event = {type: 'completeall', ween: self, element: self.element};
+					self.fire('completeall', event);
 					var func = self.stringToFunction(self.oncompleteall);
 					if (func) {
-						func.event = {tween: self, element: self.element};
+						func.event = event;
 						func.execute.call(func);
 					}
 				};
@@ -303,7 +338,8 @@
 				}
 			}
 			return this.tween;
-		},
+		}
+		,
 		start: function (element) {
 
 			this.stop();

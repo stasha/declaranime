@@ -13,6 +13,18 @@
 				label: {
 					type: String,
 					value: "source"
+				},
+				hidden: {
+					type: Boolean,
+					value: false,
+					observer: "setHidden"
+				}
+			},
+			setHidden: function(newValue){
+				if(newValue === true){
+					this.style.display = "none";
+				} else {
+					this.style.display = "block";
 				}
 			},
 			loadSource: function () {

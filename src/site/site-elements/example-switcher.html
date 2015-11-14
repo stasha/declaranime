@@ -64,21 +64,10 @@
 				}
 			},
 			open: function (element) {
-				if (typeof element === "string") {
-					element = document.querySelector(element);
-				}
-				TweenMax.set(element, {display: "block", position: "absolute"});
-				var currentHeight = element.offsetHeight;
-				TweenMax.set(element, {height: "auto"});
-				var height = element.offsetHeight;
-				TweenMax.set(element, {height: currentHeight + 10, position: "relative"});
-				TweenMax.to(element, 0.4, {height: height, opacity: 1});
+				element.style.display = "block";
 			},
 			close: function (element) {
-				if (typeof element === "string") {
-					element = document.querySelector(element);
-				}
-				TweenMax.to(element, 0.4, {display: "none", height: 0});
+				element.style.display = "none";
 			}
 		});
 	</script>

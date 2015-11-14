@@ -6,42 +6,77 @@
 -->
 <html>
 	<head>
+		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
-		<link rel="import" href="../../elements/declaranime.html" />
-		<link rel="import" href="../site-elements/page-head.html" />
-		<link rel="import" href="../site-elements/examples-navigation.html" />
+		<link rel="import" href="../site-elements/example-page.html" />
 
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<page-header></page-header>
+<example-page title="Examples" hide-source description="This page contains examples that apply for all fx- elements.<br /><span class='normal'>Note that fx-animate element is used for all examples on this page just to give you<br />enough room for playing with all other features.</span>">
 
-<page-content>
-	<div class="row">
-		<examples-navigation class="3u 12u(mobile)"></examples-navigation>
-
-		<div class="9u 12u(mobile) important(mobile)">
-
-			<section>
-				<header>
-					<h2>fx-animate</h2>
-					<h3>Animate anything</h3>
-				</header>
-
-				<ul class="moving-list">
-					<li> Bullet 1</li>
-					<li> Bullet 2</li>
-					<li> Bullet 3</li>
-				</ul>
-				<fx-move id="moving-list" element=".moving-list li" stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-move>
-				<button onclick="document.getElementById('moving-list').start()">Start</button>
-
-			</section>
-
+	<div name="Binding animation to html element" class="example selected">
+		<h3>Binding animation to html element.</h3>
+		<p>Binding animation to html element is done by setting CSS3 selectors into "element" attribute.<br />
+		Try changing selectors: "<b>.example-image-1</b>" and "<b>.example-image-2</b>" in API element input under the AnimationBehavior panel.</p>
+		<div class="example-area">
+			<img class="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+			<br />
+			<img class="example-image-2" src="../images/pf_2013_s.jpg" width="100" />
 		</div>
+		<fx-animate class="fx" element=".example-image-1" paused from-x="0" to-x="150"></fx-animate>
 	</div>
-</page-content>
+	<div name="Immediate Render" class="example">
+		<h3>Immediate Render</h3>
+		<p>Applyes all "from-" values to element/s but without starting animation.</p>
+		<div class="example-area">
+			<img class="example-image-3" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element=".example-image-3" speed="3" ease="Elastic.easeOut" paused  immediate-render
+				from-opacity="0.5" to-opacity="1"
+				from-x="150" to-x="0"
+				from-rotation="360" to-rotation="0"
+				from-skew-x="40" to-skew-x="0"
+		></fx-animate>
+	</div>
+	<div name="Repeat animation" class="example">
+		<h3>Repeat animation</h3>
+		<p>Repeats the animation with delay between.</p>
+		<div class="example-area">
+			<img class="example-image-4" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element=".example-image-4" speed="3" repeat="3" repeat-delay="0.5" ease="Elastic.easeOut" paused  immediate-render
+				from-x="0" to-x="150"
+				from-rotation="0" to-rotation="360"
+		></fx-animate>
+	</div>
+	<div name="Yoyo Repeat" class="example">
+		<h3>Yoyo Repeat</h3>
+		<p>Yoyo reverses/repeats animation based on repeat number. Note that repeat must be set to value greater than 0.</p>
+		<div class="example-area">
+			<img src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element=".example.selected img" speed="1" ease="Power3.easeIn" yoyo paused repeat="6" from-x="0" to-x="150" from-rotation="0" to-rotation="360"></fx-animate>
+	</div>
+	<div name="Stagger" class="example">
+		<h3>Stagger</h3>
+		<p>Creates stagger animation on more elements.</p>
+		<div class="example-area">
+			<img src="../images/pf_2013_s.jpg" width="100" /><br />
+			<img src="../images/pf_2013_s.jpg" width="100" /><br />
+			<img src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element=".example.selected img" speed="3" ease="Elastic.easeOut" stagger="0.3" paused from-x="0" to-x="150"></fx-animate>
+	</div>
+	<div name="Callbacks" class="example">
+		<h3>Callbacks</h3>
+		<p>Callbacks can be registered in element attributes "onstart, oncomplete, on..." or using javascript addEventListener.<br />Check the console output when running this example.</p>
+		<div class="example-area">
+			<img src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-animate class="fx" element=".example.selected img" speed="1" ease="Power3.easeIn" stagger="1" yoyo paused repeat="3" onstart="console.log(event)" oncomplete="console.log(event)" onrepeat="console.log(event)" from-x="0" to-x="150"></fx-animate>
+	</div>
 
-<page-footer></page-footer>
+</example-page>
 </body>
 </html>

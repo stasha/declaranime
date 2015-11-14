@@ -9,35 +9,53 @@
 		<link rel="stylesheet" href="../assets/css/custom.css" />
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../site-elements/example-page.html" />
-
 	<page-head title="&lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<example-page title="fx-rotate-3d" description="Rotate element by x, y, z coordinates">
+<example-page title="fx-rotate-3d" description="Rotate elements in 3d space.">
 
-	<div name="Simple example 1" class="example selected">
-		<p>description 1</p>
-		<div class="example-box"></div>
-		<fx-rotate-3d class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-rotate-3d>
+	<div name="Rotate x" class="example selected">
+		<h3>Rotate x</h3>
+		<p>Rotate x.</p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-rotate-3d class="fx" element="#example-image-1" paused speed="1" perspective="100"
+					  from-rotation-x="0" to-rotation-x="360"
+				></fx-rotate-3d>
 	</div>
-	<div name="Simple example 2" class="example">
-		<p>description 2</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
+	<div name="Rotate y" class="example">
+		<h3>Rotate y</h3>
+		<p>Rotate y.</p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-2" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-rotate-3d class="fx" element="#example-image-2" paused speed="1"
+					  from-rotation-y="0" to-rotation-y="360"
+				></fx-rotate-3d>
 	</div>
-	<div name="Simple example 3" class="example">
-		<p>description 3</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-			<li> Bullet 3</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
+	<div name="Rotate z" class="example">
+		<h3>Rotate z</h3>
+		<p>Rotate z.</p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-3" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-rotate-3d class="fx" element="#example-image-3" paused speed="1"
+					  from-rotation-z="0" to-rotation-z="360"
+				></fx-rotate-3d>
 	</div>
-
+	<div name="Rotate xyz" class="example">
+		<h3>Rotate xyz</h3>
+		<p>Rotate xyz.</p>
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-4" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-rotate-3d class="fx" element="#example-image-4" paused speed="1"
+					  from-rotation-x="0" to-rotation-x="360"
+					  from-rotation-y="0" to-rotation-y="360"
+					  from-rotation-z="0" to-rotation-z="360"
+				></fx-rotate-3d>
+	</div>
 </example-page>
 </body>
 </html>
