@@ -10,32 +10,40 @@
 		<script src="../../../../webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../site-elements/example-page.html" />
 
-	<page-head title="&lt;declaranime />"></page-head>
+	<page-head title="fx-drag - &lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<example-page title="fx-drag" description="Drag element">
+<example-page title="fx-drag" description="fx-drag is used to drag html elements.<br />Note that fx-drag is not from the animation 'family'.">
 
-	<div name="Simple example 1" class="example selected">
-		<p>description 1</p>
-		<div class="example-box"></div>
-		<fx-drag class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-drag>
+	<div name="Drag element freely" class="example selected">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-1"></fx-drag>
 	</div>
-	<div name="Simple example 2" class="example">
-		<p>description 2</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
+	<div name="Drag element inside boundaries" class="example">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-1" bounds=".example.selected"></fx-drag>
 	</div>
-	<div name="Simple example 3" class="example">
-		<p>description 3</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-			<li> Bullet 3</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
+	<div name="Drag element on x axis" class="example">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-1" type="x" bounds=".example.selected"></fx-drag>
+	</div>
+	<div name="Drag element on y axis" class="example">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-1" type="y" bounds=".example.selected"></fx-drag>
+	</div>
+	<div name="Rotate element" class="example">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-1" type="rotation" min-rotation="0" max-rotation="100" bounds=".example.selected"></fx-drag>
 	</div>
 
 </example-page>

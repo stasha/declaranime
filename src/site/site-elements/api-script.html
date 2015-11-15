@@ -71,8 +71,8 @@
 			setSyntaxSwitcher: function (newValue) {
 				if (newValue) {
 					this._syntaxSwitcher = document.querySelector(newValue);
-					if(!this._syntaxSwitcher){
-						this.debounce('CALL-SWITCHER', function(){
+					if (!this._syntaxSwitcher) {
+						this.debounce('CALL-SWITCHER', function () {
 							this.setSyntaxSwitcher(newValue);
 						}, 500);
 						return;
@@ -226,7 +226,7 @@
 				var html = '';
 
 				if (this.type === 'js') {
-					
+
 					if (parseFloat(el.stagger)) {
 						tagName = 'TweenMax.staggerTo';
 						if (Object.keys(el.fromOptions).length > 0) {
@@ -259,44 +259,52 @@
 					if (this.type === "js") {
 						html += '<span class="attribute-value">"' + el.selector + '"</span>,';
 						html += ' <span class="attribute-value">' + el.speed + '</span>';
-						
+
 						if (Object.keys(el.fromOptions).length > 0) {
 							html += ", {";
 							for (var i in el.fromOptions) {
 								if (this.ignoreProps.indexOf(i) > -1) {
 									continue;
 								}
-								
+
 								var obj = this.getObjValue(i, el.fromOptions[i]);
 
 								if (this.behaviorProperties.indexOf(obj.key) === -1) {
-									
+
 								}
 
-								for(var n in obj){
-									html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + obj[n] + '</span></span>, ';
+								for (var n in obj) {
+									var value = parseInt(obj[n]);
+									if (isNaN(value)) {
+										value = typeof obj[n] == 'boolean' ? obj[n] : "\"" + obj[n] + "\"";
+									}
+									html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + value + '</span></span>, ';
 								}
 							}
-							
+
 							html = html.replace(/,\s$/, '');
 							html += "}";
 						}
 
 						html += ", {";
-						
+
 						for (var i in el.toOptions) {
 							if (this.ignoreProps.indexOf(i) > -1) {
 								continue;
 							}
-							
+
 							var obj = this.getObjValue(i, el.toOptions[i]);
 
 							if (this.behaviorProperties.indexOf(obj.key) === -1) {
-								
+
 							}
 
-							for(var n in obj){
-								html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + obj[n] + '</span></span>, ';
+							for (var n in obj) {
+								var value = parseInt(obj[n]);
+								if (isNaN(value)) {
+									value = typeof obj[n] == 'boolean' ? obj[n] : "\"" + obj[n] + "\"";
+								}
+								html += '<span class="tag-attribute">' + n + ': <span class="attribute-value">' + value + '</span></span>, ';
 							}
 						}
 						html = html.replace(/,\s$/, '');
@@ -359,17 +367,17 @@
 				if (prop === "style") {
 					var el = document.querySelector(this.selector);
 					var obj = el.styleStringToObject.call(el, val);
-					for(var n in obj){
+					for (var n in obj) {
 						obj[n] = "\"" + obj[n] + "\"";
 					}
 					return obj;
 				}
 				var obj = {};
-				
-				if(this.behaviorProperties.indexOf(prop) === -1){
+
+				if (this.behaviorProperties.indexOf(prop) === -1) {
 					val = "\"" + val + "\"";
 				}
-				
+
 				obj[prop] = val;
 				return obj;
 			}

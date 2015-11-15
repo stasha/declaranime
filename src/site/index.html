@@ -8,6 +8,7 @@
 	<head>
 		<link rel="stylesheet" href="assets/css/custom.css" />
 		<script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="icon" href="/favicon.ico">
 		<link rel="import" href="../elements/declaranime.html" />
 		<link rel="import" href="site-elements/page-head.html" />
 		<script src="assets/js/components-ready.js"></script>
@@ -18,13 +19,43 @@
 <body>
 <page-header>
 	<div id="banner">
+		<div class="bg-rectangles">
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+			<div class="bg-rectangle"></div>
+		</div>
+
+		<fx-animate element=".bg-rectangle" 
+					speed="4" 
+					stagger="0.5" 
+					repeat="-1" 
+					yoyo 
+					ease="None.easeNone" 
+					from-scale="1" 
+					to-scale="8"
+					perspective="1000"
+					from-rotation-y="0"
+					to-rotation-y="360"
+					from-skew-x="0"
+					to-skew-x="360"
+				></fx-animate>
+<div class="banner-bg"></div>
 		<div class="container">
 			<div class="row">
 				<div class="6u 12u(mobile)">
 
 					<!-- Banner Copy -->
-					<p>Create super cool web animations in no time!<br />Super easy to use and super easy to learn!</p>
-					<!--<a href="#" class="button-big">Animation examples!</a>-->
+					<p>Create cool web animations in no time!<br />Super easy to use and super easy to learn!</p>
+					<a href="examples/" class="button-big">Try out interactive API - E&nbsp;X&nbsp;A&nbsp;M&nbsp;P&nbsp;L&nbsp;E&nbsp;S</a>
+					<div class="clearfix"></div>
+					<br />
 					<ul class="tag-list">
 						<li><a href="examples/fx-animate.html">fx-animate</a></li>
 						<li><a href="examples/fx-class.html">fx-class</a></li>
@@ -36,11 +67,10 @@
 						<li><a href="examples/fx-rotate-3d.html">fx-rotate-3d</a></li>
 						<li><a href="examples/fx-scale.html">fx-scale</a></li>
 						<li><a href="examples/fx-skew.html">fx-skew</a></li>
-						<li><a href="examples/fx-slide.html">fx-slide</a></li>
+						<!--<li><a href="examples/fx-slide.html">fx-slide</a></li>-->
 						<li><a href="examples/fx-style.html">fx-style</a></li>
 						<li><a href="examples/fx-timeline.html">fx-timeline</a></li>
 					</ul>
-
 				</div>
 				<div class="6u 12u(mobile)">
 
@@ -195,9 +225,9 @@
 				</header>
 				<p>
 					&lt;declaranime /> is tiny library for creating html animations in declarative (html) way.
-					It is built on top of the state of the art libraries: 
-					<a href="http://greensock.com/gsap">GSAP</a>,
-					<a href="http://webcomponents.org">WebComponents</a> and <a href="https://www.polymer-project.org/1.0/">Polymer</a>.
+					It is built on top of 
+					<a href="http://greensock.com/gsap">GSAP</a>
+					and Google <a href="https://www.polymer-project.org/1.0/">Polymer</a> libraries.
 					More precisely, &lt;declaranime /> is just a simple wrapper around <a href="http://greensock.com/gsap">GSAP</a> thus
 					all real cool animation algorithms and logic are handled by <a href="http://greensock.com/gsap">GSAP</a>.
 				</p>
@@ -213,10 +243,10 @@
 					<h3>In a few points...</h3>
 				</header>
 				<ul class="check-list">
-					<li>Super easy to install</li>
-					<li>Super easy to learn</li>
-					<li>Super easy to use</li>
-					<li>Super easy to extend</li>
+					<li>Easy to install</li>
+					<li>Easy to learn</li>
+					<li>Easy to use</li>
+					<!--<li>Easy to extend</li>-->
 				</ul>
 			</section>
 
@@ -229,8 +259,8 @@
 					<h2>More about &lt;declaranime /></h2>
 					<h3>In short...</h3>
 				</header>
-				<p>&lt;declaranime /> was born as a "side effect" to other project and that's why it is built on top of these technologies.
-					Because project size was never a concern, &lt;declaranime /> uses TweenMax and TimelineMax libraries as default animation "providers". 
+				<p>&lt;declaranime /> was born as a hobby "side effect" to other hobby project and that's why it is built on top of these technologies.
+					Because project size was never concern, &lt;declaranime /> uses TweenMax and TimelineMax libraries as default animation "providers". 
 					If file size concerns you, you can modify "declaranime.html" file and use TweenLite and TimelineLite with desired plugins.
 				</p>
 			</section>
