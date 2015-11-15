@@ -37,7 +37,6 @@
 					stagger="0.5" 
 					repeat="-1" 
 					yoyo 
-					ease="None.easeNone" 
 					from-scale="1" 
 					to-scale="8"
 					perspective="1000"
@@ -45,8 +44,8 @@
 					to-rotation-y="360"
 					from-skew-x="0"
 					to-skew-x="360"
-				></fx-animate>
-<div class="banner-bg"></div>
+					></fx-animate>
+		<div class="banner-bg"></div>
 		<div class="container">
 			<div class="row">
 				<div class="6u 12u(mobile)">
@@ -80,7 +79,25 @@
 					<div class="pre mid">&lt;script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js">&lt;/script><br />
 						&lt;link rel="import"<br />
 						&nbsp;&nbsp;&nbsp;&nbsp;href="/bower_components/declaranime/src/elements/declaranime.html" /></div>
+					<div class="bg-animation-example">
+						<p>Code used for background animation</p>
+						<div class="pre mid">
+							&lt;fx-animate element=".bg-rectangle" 
+							speed="4" 
+							stagger="0.5" 
+							repeat="-1" 
+							yoyo 
+							from-scale="1" 
+							to-scale="8"
+							perspective="1000"
+							from-rotation-y="0"
+							to-rotation-y="360"
+							from-skew-x="0"
+							to-skew-x="360">&lt;/fx-animate>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

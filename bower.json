@@ -4,7 +4,8 @@
   "main": "path/to/main.css",
   "ignore": [
     ".jshintrc",
-    "**/*.txt"
+    "**/*.txt",
+	"**/src/site/*"
   ],
   "dependencies": {
     "polymer": "^1.1.3",

@@ -47,6 +47,23 @@ img { -ms-interpolation-mode: bicubic; }
 	border: 5px solid white;
 }
 
+.bg-animation-example {
+	font-size: 14px;
+	line-height: 18px;
+	opacity: 0.2;
+}
+
+#banner .bg-animation-example p {
+	margin-top: 25px;
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+#banner .bg-animation-example .pre {
+	padding: 0;
+	background: none;
+}
+
 #features-wrapper {
 	padding-top: 20px;
 }
