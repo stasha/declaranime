@@ -34,15 +34,16 @@
 							<div class="examples">
 								<content></content>
 							</div>
-
-							<button id="start" on-click="changeState">Start</button>
-							<button id="pause" disabled on-click="changeState">Pause</button>
-							<button id="resume" style="display: none;" on-click="changeState">Resume</button>
-							<button id="reverse" disabled on-click="changeState">Reverse</button>
+							<div id="example-buttons">
+								<button id="start" on-click="changeState">Start</button>
+								<button id="pause" disabled on-click="changeState">Pause</button>
+								<button id="resume" style="display: none;" on-click="changeState">Resume</button>
+								<button id="reverse" disabled on-click="changeState">Reverse</button>
+							</div>
 							<p class="fx-example-title">Example code</p>
 							<div id="fx-example"></div>
 							<div class="api-lists">
-								
+
 
 								<div class="clearfix"></div>
 								<expand-collapse class="pull-right" element=".api-lists h3"></expand-collapse>
@@ -60,72 +61,78 @@
 		<api-script id="api-script" syntax-switcher="syntax-switcher"></api-script>
 	</template>
 	<script>
-		Polymer({
-			is: "example-page",
-			properties: {
-				title: {
-					type: String
-				},
-				description: {
-					type: String,
-					observer: 'setDescription'
-				},
-				hideSource: {
-					type: Boolean,
-					value: false
-				}
-			},
-			sourceTitle: function () {
-				return this.title + " source";
-			},
-			sourceUrl: function () {
-				return "../../elements/" + this.title + ".html";
-			},
-			setDescription: function(newValue){
-				this.querySelector(".description").innerHTML = newValue;
-			},
-			changeState: function(e){
-				var state = e.target.id;
-				var animation = document.querySelector('.example.selected .fx');
-				var self = this;
-				animation.addEventListener('complete', function(e){
-					setButtons('play', true);
-				});
-				animation.addEventListener('reversecomplete', function(e){
-					setButtons('play', true, true);
-				});
-				animation.addEventListener('update', function(e){
-					setButtons('play');
-				});
-				
-				animation[state]();
-				setButtons(state);
-
-					function setButtons(state, disablePause, disableReverse){
-						switch(state){
-						case 'pause':
-						case 'stop':
-								self.$.resume.style.display = 'inline';
-								self.$.pause.style.display = 'none';
-							break;
-						default:
-							self.$.resume.style.display = 'none';
-							self.$.pause.style.display = 'inline';
-							if(disablePause){
-								self.$.pause.setAttribute('disabled', 'disabled');
-							} else {
-								self.$.pause.removeAttribute('disabled');
-							}
-							if(disableReverse){
-								self.$.reverse.setAttribute('disabled', 'disabled');
-							} else {
-								self.$.reverse.removeAttribute('disabled');
-							}
-					}
-				}
-				
-				
-			}
+Polymer({
+	is: "example-page",
+	properties: {
+		title: {
+			type: String
+		},
+		description: {
+			type: String,
+			observer: 'setDescription'
+		},
+		hideSource: {
+			type: Boolean,
+			value: false
+		}
+	},
+	attached: function () {
+		var animation = document.querySelector('.example.selected .fx');
+		if (animation.tagName === "FX-DRAG") {
+			this.querySelector('#example-buttons').style.display = "none";
+		}
+	},
+	sourceTitle: function () {
+		return this.title + " source";
+	},
+	sourceUrl: function () {
+		return "../../elements/" + this.title + ".html";
+	},
+	setDescription: function (newValue) {
+		this.querySelector(".description").innerHTML = newValue;
+	},
+	changeState: function (e) {
+		var state = e.target.id;
+		var animation = document.querySelector('.example.selected .fx');
+		var self = this;
+		animation.addEventListener('complete', function (e) {
+			setButtons('play', true);
 		});
+		animation.addEventListener('reversecomplete', function (e) {
+			setButtons('play', true, true);
+		});
+		animation.addEventListener('update', function (e) {
+			setButtons('play');
+		});
+
+		animation[state]();
+		setButtons(state);
+
+		function setButtons(state, disablePause, disableReverse) {
+			switch (state) {
+				case 'pause':
+				case 'stop':
+					self.$.resume.style.display = 'inline';
+					self.$.pause.style.display = 'none';
+					break;
+				default:
+					self.$.resume.style.display = 'none';
+					self.$.pause.style.display = 'inline';
+					if (disablePause) {
+						self.$.pause.setAttribute('disabled', 'disabled');
+					} else {
+						self.$.pause.removeAttribute('disabled');
+					}
+					if (disableReverse) {
+						self.$.reverse.setAttribute('disabled', 'disabled');
+					} else {
+						self.$.reverse.removeAttribute('disabled');
+					}
+			}
+		}
+
+
+	}
+});
 	</script>
 </dom-module>

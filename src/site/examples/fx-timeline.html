@@ -11,33 +11,68 @@
 		<link rel="import" href="../site-elements/example-page.html" />
 
 	<page-head title="fx-timeline - &lt;declaranime />"></page-head>
+	<style>
+		.example-box {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+		
+		#rects {
+			position: absolute;
+			top: 200px;
+			left: 200px;
+			width: 500px;
+			height: 500px;
+		}
+	</style>
 </head>
 <body class="subpage">
-<example-page title="fx-timeline" description="Create complex animations">
+<example-page title="fx-timeline" description="<span style='color: orange'>!!! Note that example is still under construction!!!</span><br /><br />
+			  Create complex animations">
 
-	<div name="Simple example 1" class="example selected">
-		<p>description 1</p>
-		<div class="example-box"></div>
-		<fx-timeline class="fx" reverse-on-back element=".example.selected .example-box" yoyo stagger="0.2" from-x="0" to-x="150" speed="2" ease="Elastic.easeOut"></fx-timeline>
+	<div name="Complex timeline animation" class="example selected">
+		<p>Complex animation</p>
+		<div style="height: 510px;" class="example-area">
+			<div id="rects">
+				<div class="example-box" id="rect-0"></div>
+				<div class="example-box" id="rect-1"></div>
+				<div class="example-box" id="rect-2"></div>
+				<div class="example-box" id="rect-3"></div>
+				<div class="example-box" id="rect-4"></div>
+				<div class="example-box" id="rect-5"></div>
+				<div class="example-box" id="rect-6"></div>
+				<div class="example-box" id="rect-7"></div>
+				<div class="example-box" id="rect-8"></div>
+				<div class="example-box" id="rect-9"></div>
+				<div class="example-box" id="rect-10"></div>
+				<div class="example-box" id="rect-11"></div>
+				<div class="example-box" id="rect-12"></div>
+				<div class="example-box" id="rect-13"></div>
+				<div class="example-box" id="rect-14"></div>
+				<div class="example-box" id="rect-15"></div>
+			</div>
+		</div>
+		<fx-timeline class="fx" yoyo paused speed="2" ease="Elastic.easeOut">
+			<fx-move element="#rect-0" from-x="0" to-x="200" from-y="0" to-y="0"></fx-move>
+			<fx-move element="#rect-1" from-x="0" to-x="184.77590650225736" from-y="0" to-y="76.53668647301795"></fx-move>
+			<fx-move element="#rect-2" from-x="0" to-x="141.4213562373095" from-y="0" to-y="141.42135623730948"></fx-move>
+			<fx-move element="#rect-3" from-x="0" to-x="76.53668647301797" from-y="0" to-y="184.77590650225736"></fx-move>
+			<fx-move element="#rect-4" from-x="0" to-x="1.2246467991473532e-14" from-y="0" to-y="200"></fx-move>
+			<fx-move element="#rect-5" from-x="0" to-x="-76.53668647301795" from-y="0" to-y="184.77590650225736"></fx-move>
+			<fx-move element="#rect-6" from-x="0" to-x="-141.42135623730948" from-y="0" to-y="141.4213562373095"></fx-move>
+			<fx-move element="#rect-7" from-x="0" to-x="-184.77590650225736" from-y="0" to-y="76.53668647301798"></fx-move>
+			<fx-move element="#rect-8" from-x="0" to-x="-200" from-y="0" to-y="2.4492935982947064e-14"></fx-move>
+			<fx-move element="#rect-9" from-x="0" to-x="-184.77590650225736" from-y="0" to-y="-76.53668647301794"></fx-move>
+			<fx-move element="#rect-10" from-x="0" to-x="-141.42135623730954" from-y="0" to-y="-141.42135623730948"></fx-move>
+			<fx-move element="#rect-11" from-x="0" to-x="-76.53668647301807" from-y="0" to-y="-184.7759065022573"></fx-move>
+			<fx-move element="#rect-12" from-x="0" to-x="-3.6739403974420595e-14" from-y="0" to-y="-200"></fx-move>
+			<fx-move element="#rect-13" from-x="0" to-x="76.536686473018" from-y="0" to-y="-184.77590650225733"></fx-move>
+			<fx-move element="#rect-14" from-x="0" to-x="141.42135623730948" from-y="0" to-y="-141.42135623730954"></fx-move>
+			<fx-move element="#rect-15" from-x="0" to-x="184.7759065022573" from-y="0" to-y="-76.53668647301808"></fx-move>
+			<fx-rotate element="#rects" from-rotation="0" to-rotation="360"></fx-rotate>
+		</fx-timeline>
 	</div>
-	<div name="Simple example 2" class="example">
-		<p>description 2</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" stagger="0.3" from-x="0" to-x="150" speed="2" ease="Power0.easeNone"></fx-animate>
-	</div>
-	<div name="Simple example 3" class="example">
-		<p>description 3</p>
-		<ul class="moving-list">
-			<li> Bullet 1</li>
-			<li> Bullet 2</li>
-			<li> Bullet 3</li>
-		</ul>
-		<fx-animate class="fx" element=".example.selected .moving-list li" yoyo stagger="2" from-x="0" to-x="150" speed="2" ease="Power3.easeIn"></fx-animate>
-	</div>
-
 </example-page>
 </body>
 </html>

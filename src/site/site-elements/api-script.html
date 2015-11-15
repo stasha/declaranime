@@ -186,7 +186,7 @@
 			},
 			updateInputValues: function () {
 				var el = document.querySelector(this.selector);
-				el.updateOptions();
+				el.updateOptions && el.updateOptions();
 
 
 				var behaviors = el.behaviors;

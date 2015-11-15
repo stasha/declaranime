@@ -13,7 +13,7 @@
 	<page-head title="fx-drag - &lt;declaranime />"></page-head>
 </head>
 <body class="subpage">
-<example-page title="fx-drag" description="fx-drag is used to drag html elements.<br />Note that fx-drag is not from the animation 'family'.">
+<example-page title="fx-drag" description="<span style='color: orange'>!!! Example api is under construction but examples work normaly !!!</span><br /><br />fx-drag is used to drag html elements.<br /><span class='normal'>Note that fx-drag is not from the animation 'family'.</span>">
 
 	<div name="Drag element freely" class="example selected">
 		<div style="height: 400px;" class="example-area">
@@ -23,27 +23,33 @@
 	</div>
 	<div name="Drag element inside boundaries" class="example">
 		<div style="height: 400px;" class="example-area">
-			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+			<img id="example-image-2" src="../images/pf_2013_s.jpg" width="100" />
 		</div>
-		<fx-drag class="fx" element="#example-image-1" bounds=".example.selected"></fx-drag>
+		<fx-drag class="fx" element="#example-image-2" bounds=".example.selected"></fx-drag>
 	</div>
 	<div name="Drag element on x axis" class="example">
 		<div style="height: 400px;" class="example-area">
-			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+			<img id="example-image-3" src="../images/pf_2013_s.jpg" width="100" />
 		</div>
-		<fx-drag class="fx" element="#example-image-1" type="x" bounds=".example.selected"></fx-drag>
+		<fx-drag class="fx" element="#example-image-3" type="x" bounds=".example.selected"></fx-drag>
 	</div>
 	<div name="Drag element on y axis" class="example">
 		<div style="height: 400px;" class="example-area">
-			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+			<img id="example-image-4" src="../images/pf_2013_s.jpg" width="100" />
 		</div>
-		<fx-drag class="fx" element="#example-image-1" type="y" bounds=".example.selected"></fx-drag>
+		<fx-drag class="fx" element="#example-image-4" type="y" bounds=".example.selected"></fx-drag>
+	</div>
+	<div name="Lock axis" class="example">
+		<div style="height: 400px;" class="example-area">
+			<img id="example-image-5" src="../images/pf_2013_s.jpg" width="100" />
+		</div>
+		<fx-drag class="fx" element="#example-image-5" type="x,y" lock-axis bounds=".example.selected"></fx-drag>
 	</div>
 	<div name="Rotate element" class="example">
 		<div style="height: 400px;" class="example-area">
-			<img id="example-image-1" src="../images/pf_2013_s.jpg" width="100" />
+			<img id="example-image-6" src="../images/pf_2013_s.jpg" width="100" />
 		</div>
-		<fx-drag class="fx" element="#example-image-1" type="rotation" min-rotation="0" max-rotation="100" bounds=".example.selected"></fx-drag>
+		<fx-drag class="fx" element="#example-image-6" type="rotation" min-rotation="0" max-rotation="360" bounds=".example.selected"></fx-drag>
 	</div>
 
 </example-page>
