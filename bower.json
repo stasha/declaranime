@@ -6,7 +6,8 @@
     ".jshintrc",
     "**/*.txt",
 	"/src/site",
-	"customs.json"
+	"customs.json",
+	".gitignore"
   ],
   "dependencies": {
     "polymer": "^1.1.3",
