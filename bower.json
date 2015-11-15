@@ -1,11 +1,12 @@
 {
   "name": "declaranime",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "main": "path/to/main.css",
   "ignore": [
     ".jshintrc",
     "**/*.txt",
-	"**/src/site/*"
+	"**/src/site/*",
+	"customs.json"
   ],
   "dependencies": {
     "polymer": "^1.1.3",
