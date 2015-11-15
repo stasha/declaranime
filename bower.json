@@ -5,7 +5,7 @@
   "ignore": [
     ".jshintrc",
     "**/*.txt",
-	"**/src/site/*",
+	"/src/site",
 	"customs.json"
   ],
   "dependencies": {
