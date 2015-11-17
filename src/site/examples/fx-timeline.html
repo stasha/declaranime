@@ -20,8 +20,8 @@
 		
 		#rects {
 			position: absolute;
-			top: 200px;
-			left: 200px;
+			top: 0;
+			left: 0;
 			width: 500px;
 			height: 500px;
 		}
@@ -53,24 +53,28 @@
 				<div class="example-box" id="rect-15"></div>
 			</div>
 		</div>
-		<fx-timeline class="fx" yoyo paused speed="2" ease="Elastic.easeOut">
-			<fx-move element="#rect-0" from-x="0" to-x="200" from-y="0" to-y="0"></fx-move>
-			<fx-move element="#rect-1" from-x="0" to-x="184.77590650225736" from-y="0" to-y="76.53668647301795"></fx-move>
-			<fx-move element="#rect-2" from-x="0" to-x="141.4213562373095" from-y="0" to-y="141.42135623730948"></fx-move>
-			<fx-move element="#rect-3" from-x="0" to-x="76.53668647301797" from-y="0" to-y="184.77590650225736"></fx-move>
-			<fx-move element="#rect-4" from-x="0" to-x="1.2246467991473532e-14" from-y="0" to-y="200"></fx-move>
-			<fx-move element="#rect-5" from-x="0" to-x="-76.53668647301795" from-y="0" to-y="184.77590650225736"></fx-move>
-			<fx-move element="#rect-6" from-x="0" to-x="-141.42135623730948" from-y="0" to-y="141.4213562373095"></fx-move>
-			<fx-move element="#rect-7" from-x="0" to-x="-184.77590650225736" from-y="0" to-y="76.53668647301798"></fx-move>
-			<fx-move element="#rect-8" from-x="0" to-x="-200" from-y="0" to-y="2.4492935982947064e-14"></fx-move>
-			<fx-move element="#rect-9" from-x="0" to-x="-184.77590650225736" from-y="0" to-y="-76.53668647301794"></fx-move>
-			<fx-move element="#rect-10" from-x="0" to-x="-141.42135623730954" from-y="0" to-y="-141.42135623730948"></fx-move>
-			<fx-move element="#rect-11" from-x="0" to-x="-76.53668647301807" from-y="0" to-y="-184.7759065022573"></fx-move>
-			<fx-move element="#rect-12" from-x="0" to-x="-3.6739403974420595e-14" from-y="0" to-y="-200"></fx-move>
-			<fx-move element="#rect-13" from-x="0" to-x="76.536686473018" from-y="0" to-y="-184.77590650225733"></fx-move>
-			<fx-move element="#rect-14" from-x="0" to-x="141.42135623730948" from-y="0" to-y="-141.42135623730954"></fx-move>
-			<fx-move element="#rect-15" from-x="0" to-x="184.7759065022573" from-y="0" to-y="-76.53668647301808"></fx-move>
-			<fx-rotate element="#rects" from-rotation="0" to-rotation="360"></fx-rotate>
+		<fx-timeline class="fx" paused yoyo speed="2" ease="Elastic.easeOut">
+
+<fx-animate element="#rect-0" from-rotation="0" to-rotation="0" from-x="200" to-x="400" from-y="200" to-y="200"></fx-animate>
+<fx-animate element="#rect-1" from-rotation="0" to-rotation="22.5" from-x="200" to-x="384.7759065022574" from-y="200" to-y="276.53668647301794"></fx-animate>
+<fx-animate element="#rect-2" from-rotation="0" to-rotation="45" from-x="200" to-x="341.4213562373095" from-y="200" to-y="341.4213562373095"></fx-animate>
+<fx-animate element="#rect-3" from-rotation="0" to-rotation="67.5" from-x="200" to-x="276.536686473018" from-y="200" to-y="384.7759065022574"></fx-animate>
+<fx-animate element="#rect-4" from-rotation="0" to-rotation="90" from-x="200" to-x="200" from-y="200" to-y="400"></fx-animate>
+<fx-animate element="#rect-5" from-rotation="0" to-rotation="112.5" from-x="200" to-x="123.46331352698205" from-y="200" to-y="384.7759065022574"></fx-animate>
+<fx-animate element="#rect-6" from-rotation="0" to-rotation="135" from-x="200" to-x="58.57864376269052" from-y="200" to-y="341.4213562373095"></fx-animate>
+<fx-animate element="#rect-7" from-rotation="0" to-rotation="157.5" from-x="200" to-x="15.224093497742643" from-y="200" to-y="276.536686473018"></fx-animate>
+<fx-animate element="#rect-8" from-rotation="0" to-rotation="180" from-x="200" to-x="0" from-y="200" to-y="200.00000000000003"></fx-animate>
+<fx-animate element="#rect-9" from-rotation="0" to-rotation="202.5" from-x="200" to-x="15.224093497742643" from-y="200" to-y="123.46331352698206"></fx-animate>
+<fx-animate element="#rect-10" from-rotation="0" to-rotation="225" from-x="200" to-x="58.57864376269046" from-y="200" to-y="58.57864376269052"></fx-animate>
+<fx-animate element="#rect-11" from-rotation="0" to-rotation="247.5" from-x="200" to-x="123.46331352698193" from-y="200" to-y="15.2240934977427"></fx-animate>
+<fx-animate element="#rect-12" from-rotation="0" to-rotation="270" from-x="200" to-x="199.99999999999997" from-y="200" to-y="0"></fx-animate>
+<fx-animate element="#rect-13" from-rotation="0" to-rotation="292.5" from-x="200" to-x="276.536686473018" from-y="200" to-y="15.224093497742672"></fx-animate>
+<fx-animate element="#rect-14" from-rotation="0" to-rotation="315" from-x="200" to-x="341.4213562373095" from-y="200" to-y="58.57864376269046"></fx-animate>
+<fx-animate element="#rect-15" from-rotation="0" to-rotation="337.5" from-x="200" to-x="384.77590650225727" from-y="200" to-y="123.46331352698192"></fx-animate>
+
+<fx-animate element=".example-box" paused from-scale="0.2" to-scale="1" paused yoyo repeat="16" speed="1" stagger="1"></fx-animate>
+<fx-animate element=".example-box" paused to-x="200" to-y="200" from-style="border-radius:50px" to-style="border-radius:0px"></fx-animate>
+<fx-rotation element="#rects" from-rotation="0" to-rotation="720"></fx-rotation>
 		</fx-timeline>
 	</div>
 </example-page>
